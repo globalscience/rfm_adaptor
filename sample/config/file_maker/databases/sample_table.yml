@@ -29,7 +29,6 @@ production:
   table: "sample"
   layout: "sample"
 
-
 #--------------------#
 # fields
 #
