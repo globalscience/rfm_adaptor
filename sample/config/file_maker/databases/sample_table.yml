@@ -1,0 +1,58 @@
+# rfm adaptor table settings
+
+#--------------------#
+# environments
+#
+# Required attributes
+#   table, layout
+# 
+# Optinal attributes
+#   host, port, ssl, username, password
+#
+# if optional attributes not set, use attributes in "default.yml".
+
+development:
+  table:  "sample_table"
+  layout: "sample_layout"
+  
+test:
+  table:  "sample_table"
+  layout: "sample_layout"
+
+production:
+  host:     "FileMakerServer.localnet"  # FileMakerServer's IP-address or hostname
+  port:     80
+  ssl:      false
+  username: "Administrator"
+  password: "password"
+  
+  table: "sample"
+  layout: "sample"
+
+
+#--------------------#
+# fields
+#
+# fields declaration as instance method.
+
+fields:
+  "age": "sample::years_since_birth"
+  "birthday": "sample::date_of_birth"
+
+#--------------------#
+# scripts
+# 
+# request script as class method.
+
+scripts:
+  "find_generations_and_sort":
+    "-script":  "find_generation_and_sort"
+    "-script.param":  "%{age}"
+    
+  "find_generations":
+    # "-script": find_generations   # optional
+    "-script.param": "%{age}"
+    
+  "find_generations_and_sort_reversed": "%{age}.reversed"   #  script parameter as key-value
+
+    
