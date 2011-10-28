@@ -1,0 +1,51 @@
+# rfm adaptor table settings
+
+#--------------------#
+# environments
+#
+# Required attributes
+#   table, layout
+# 
+# Optinal attributes
+#   host, port, ssl, username, password
+#
+# if optional attributes not set, use attributes in "default.yml".
+
+development:
+  table:  "people_dev"
+  layout: "people_dev"
+  
+test:
+  table:  "people_test"
+  layout: "people_test"
+
+production:
+  table:  "people"
+  layout: "people"
+  
+#--------------------#
+# fields
+#
+# fields declaration as instance method.
+
+fields:
+  "age": "sample::years_since_birth"
+  "birthday": "sample::date_of_birth"
+
+#--------------------#
+# scripts
+# 
+# request script as class method.
+
+scripts:
+  "find_generations_and_sort":
+    "-script":  "find_generation_and_sort"
+    "-script.param":  "%{age}"
+    
+  "find_generations":
+    # "-script": find_generations   # optional
+    "-script.param": "%{age}"
+    
+  "find_generations_and_sort_reversed": "%{age}.reversed"   #  script parameter as key-value
+
+    

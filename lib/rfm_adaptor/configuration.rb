@@ -15,8 +15,16 @@ module RfmAdaptor
     attr_writer :env
     attr_writer :attributes
     
-    def setup_attributes(environment)
-      self.env = environment
+    def setup_attributes(environment = nil)
+      if environment.nil?
+        if defined? Rails 
+          environment = Rails.env
+        else
+          environment = "development"
+        end
+      end
+        
+      self.env = environment.to_s
       self.attributes = self.load_configuration
     end
     
@@ -32,7 +40,7 @@ module RfmAdaptor
       if defined?(Rails)
         Rails.root
       else
-        File.expand(File.join(File.dirname(__FILE__), "..", ".."))
+        File.expand_path(File.join(File.dirname(__FILE__), "..", ".."))
       end
     end
     

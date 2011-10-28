@@ -1,26 +1,22 @@
 # encoding: utf-8
 
-require "rfm_adaptor/constant"
-require "rfm_adaptor/table"
+require "yaml"
+require "rfm_adaptor/table/class_method"
 
 class RfmAdaptor::Table::Base
-  def table_name
-    underscore(self.class.name)
+  extend RfmAdaptor::Table::ClassMethod
+  
+  def initialize
+    self.class.setup_attributes
   end
   
-  #--------------------#
-  protected
-  #--------------------#
-  
-  def relative_path
-    File.join(self.database_config_dir, self.table_name)
+  def method_missing_with_field(name, *args)
+    unless self.class.fields.include?(name.to_s)
+      self.method_missing_without_field(name, *args)
+    else
+      p name
+    end
   end
-  
-  def database_config_dir
-    RfmAdaptor::DATABASE_DIR
-  end
-  
-  def default_attributes
-    YAML.load_file(self.root, self.database_config_dir, RfmAdaptor::DEFAULT_DATABASE + RfmAdaptor::CONFIG_EXTENSION)
-  end
+  alias_method :method_missing_without_field, :method_missing
+  alias_method :method_missing, :method_missing_with_field
 end
