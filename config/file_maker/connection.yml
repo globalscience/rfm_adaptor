@@ -1,0 +1,26 @@
+# rfm adaptor configuration
+
+#--------------------#
+# connections
+
+default:
+  development:
+    host:     "FileMakerServer.development_network"  # FileMakerServer's IP-address or hostname
+    port:     80
+    ssl:      false
+    username: "Administrator"
+    password: "password"
+    
+  test:
+    host:     "FileMakerServer.test_network"  # FileMakerServer's IP-address or hostname
+    port:     80
+    ssl:      false
+    username: "Administrator"
+    password: "password"
+    
+  production:
+    host:     "FileMakerServer"  # FileMakerServer's IP-address or hostname
+    port:     80
+    ssl:      false
+    username: "Administrator"
+    password: "password"

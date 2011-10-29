@@ -10,13 +10,15 @@ class RfmAdaptor::Table::Base
     self.class.setup_attributes
   end
   
-  def method_missing_with_field(name, *args)
+  #--------------------#
+  private
+  #--------------------#
+  
+  def method_missing(name, *args, &block)
     unless self.class.fields.include?(name.to_s)
-      self.method_missing_without_field(name, *args)
+      super(name, *args, &block)
     else
       p name
     end
   end
-  alias_method :method_missing_without_field, :method_missing
-  alias_method :method_missing, :method_missing_with_field
 end
