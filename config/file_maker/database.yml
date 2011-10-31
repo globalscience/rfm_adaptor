@@ -21,7 +21,7 @@ people:
     database:   "people_dev"
     layout:     "people_dev"
   test:
-    connection: test_server
+    connection: "test_server"
     database:   "people_test"
     layout:     "people_test"
   production:

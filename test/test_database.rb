@@ -7,24 +7,22 @@ class TestDatabase < Test::Unit::TestCase
     should "have a environment" do
       assert_not_nil(RfmAdaptor::Database::Base.env)
     end
-    
-    should "have a database_name" do
-      assert_not_nil(RfmAdaptor::Database::Base.database_name)
-      
-    end
   end
   
   context "Database instance" do
     setup do
-      @database = RfmAdaptor::Database::Base.new(:people)
+      @database_name = "people"
+      @database = RfmAdaptor::Database::Base.new(@database_name)
     end
     
     should "have a database_name" do
       assert_not_nil(@database.database_name)
+      assert_equal(@database.database_name, @database_name)
     end
     
     should "connect database" do
-      p @database.connect
+      assert_kind_of(Rfm::Server, @database.server)
+      assert_kind_of(Rfm::Layout, @database.connection)
     end
   end
 end
