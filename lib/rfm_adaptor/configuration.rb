@@ -40,7 +40,7 @@ class RfmAdaptor::Configuration
         value = YAML.load_file(path)
         self.attributes.merge!(value)
       end
-    end
+    end if File.directory?(self.targets_dir)
   end
   
   # Default configuration file path.

@@ -1,0 +1,14 @@
+# encoding: utf-8
+
+people:
+  sort_by_age:
+    "-script":        "sort_people_by_age"
+    "-script.param":  "asc"
+  
+  search_by_age:
+    name: "search_people_by_age"
+    param:  "%{age}"
+  
+  sort_by_address:  "%{order}"
+  
+  sort_by_address_asc:

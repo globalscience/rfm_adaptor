@@ -4,6 +4,8 @@ module RfmAdaptor::Constant
   CONFIG_DIR = "config/file_maker"
   CONFIG_EXTENSION = ".yml"
   DEFAULT_ENVIRONMENT = "production"
+  SCRIPT_REQUEST_KEY  = "-script"
+  SCRIPT_PARAM_REQUEST_KEY = "-script.param"
   
 end
 
