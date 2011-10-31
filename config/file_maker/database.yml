@@ -1,0 +1,32 @@
+# encoding: utf-8
+
+bases:
+  development:
+    connection: "dev_server"
+    database:   "base_dev"
+    layout:     "base_dev"
+  test:
+    connection: test_server
+    database:   "base_test"
+    layout:     "base_test"
+  production:
+    connection: default
+    database:   "base"
+    layout:     "base"
+
+
+people:
+  development:
+    connection: "dev_server"
+    database:   "people_dev"
+    layout:     "people_dev"
+  test:
+    connection: test_server
+    database:   "people_test"
+    layout:     "people_test"
+  production:
+    connection: default
+    database:   "people"
+    layout:     "people"
+
+

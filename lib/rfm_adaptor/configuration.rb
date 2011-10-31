@@ -58,8 +58,7 @@ class RfmAdaptor::Configuration
   # Directory path contains target-configuration files.
   # 個別のターゲット設定ファイルを格納したディレクトリパス
   def targets_dir
-    #File.expand_path(File.join(self.configuration_dir, self.target.pluralize))
-    File.expand_path(File.join(self.configuration_dir, pluralize(self.target)))
+    File.expand_path(File.join(self.configuration_dir, self.target.pluralize))
   end
   
   # Directory path contains RfmAdaptor configuration files.
@@ -89,5 +88,4 @@ class RfmAdaptor::Configuration
       self.attributes[name.to_s]
     end
   end
-
 end

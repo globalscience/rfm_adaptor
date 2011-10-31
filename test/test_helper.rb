@@ -15,7 +15,7 @@ unless defined? Rails
     end
     
     def self.env
-      @env ||= "development"
+      @env ||= "test"
     end
     
     def self.root

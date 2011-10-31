@@ -1,0 +1,15 @@
+# encoding: utf-8
+
+customers:
+  development:
+    connection:  default
+    database:    "customers_dev"
+    layout:      "customers_dev"
+  test:
+    #connection: test_server
+    #database:   "customers_dev"
+    #layout:     "customers_dev"
+  production:
+    connection: default
+    #database: ""
+    #

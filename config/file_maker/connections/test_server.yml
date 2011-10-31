@@ -3,8 +3,8 @@
 #--------------------#
 # connections
 
-default:
-    host:     "FileMakerServer.development_network"  # FileMakerServer's IP-address or hostname
+test_server:
+    host:     "test_server.localnet"  # FileMakerServer's IP-address or hostname
     port:     80
     ssl:      false
     username: "Administrator"
