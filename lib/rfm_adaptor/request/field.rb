@@ -2,9 +2,10 @@
 
 # Handle field-request.
 class RfmAdaptor::Request::Field
-  # Load configuration and create instance.
-  # @param database_name [String,Symbol] database label written in configuration file.
-  def self.load_field(database_name)
+  # Load configuration file to create instance.
+  # @param database_name [String] database name.
+  # @return [RfmAdaptor::Request::Field]
+  def self.load_config(database_name)
     self.new(database_name)
   end
   
@@ -43,7 +44,7 @@ class RfmAdaptor::Request::Field
   
   attr_writer :database_name
   attr_accessor :config, :attributes
-  
+
   # setup instance with configuration file(s).
   def setup
     self.config = RfmAdaptor::Configuration.new(:field)

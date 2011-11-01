@@ -6,7 +6,7 @@ class Request::TestScript < Test::Unit::TestCase
   context "Script" do
     setup do
       @database_name = "people"
-      @script = RfmAdaptor::Request::Script.load_script(@database_name)
+      @script = RfmAdaptor::Request::Script.load_config(@database_name)
     end
     
     should "respond to list" do
