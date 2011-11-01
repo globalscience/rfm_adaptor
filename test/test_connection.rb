@@ -8,10 +8,6 @@ class TestConnection < Test::Unit::TestCase
       @connection = RfmAdaptor::Connection.new(:test_server)
     end
     
-    should "has a configuration" do
-      assert_kind_of(RfmAdaptor::Configuration, @connection.config)
-    end
-    
     should "has infomation methods" do
       [:host, :port, :ssl, :username].each do |m|
         

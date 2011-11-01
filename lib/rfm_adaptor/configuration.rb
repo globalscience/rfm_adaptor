@@ -2,19 +2,18 @@
 
 require "yaml"
 
+# Handle configurations for RfmAtoptor libraries.
 class RfmAdaptor::Configuration
-  #--------------------#
-  # class methods
-  #--------------------#
-  
   # Load configurations
-  # @param target String,Symbol configuration target
-  # @return Object Configuration object.
+  # @param target [String,Symbol] configuration target
+  # @return [Rfm::Configuration] Configuration object.
   def self.load(target)
     config = self.new(target)
     return(config)
   end
   
+  # initialize instance
+  # @param target [String,Symbol] configuration target name.
   def initialize(target)
     super()
     self.target = target.to_s
@@ -45,30 +44,35 @@ class RfmAdaptor::Configuration
   
   # Default configuration file path.
   # デフォルトの設定ファイルパス
+  # @return [String]
   def configuration_path
     File.expand_path(File.join(self.configuration_dir, self.target_file_name))
   end
   
   # Default target file name (with extension).
   # デフォルトの設定ファイル名（拡張子付き）
+  # @return [String]
   def target_file_name
     self.target + RfmAdaptor::CONFIG_EXTENSION
   end
   
   # Directory path contains target-configuration files.
   # 個別のターゲット設定ファイルを格納したディレクトリパス
+  # @return [String]
   def targets_dir
     File.expand_path(File.join(self.configuration_dir, self.target.pluralize))
   end
   
   # Directory path contains RfmAdaptor configuration files.
   # RfmAdaptor関連の設定ファイルを格納したディレクトリパス。
+  # @return [String]
   def configuration_dir
     File.expand_path(File.join(self.root, RfmAdaptor::CONFIG_DIR))
   end
   
   # Root Directory
   # アプリケーションのルート（もしくはプロジェクトへのルート）
+  # @return [String]
   def root
     if defined?(Rails)&&Rails.respond_to?(:root)
       Rails.root
@@ -77,10 +81,7 @@ class RfmAdaptor::Configuration
     end
   end
   
-  #--------------------#
-  private
-  #--------------------#
-  
+  # override to access attributes(first-level of configuration).
   def method_missing(name, *args, &block)
     unless self.attributes.include?(name.to_s)
       super(name, *args, &block)

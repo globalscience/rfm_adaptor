@@ -1,0 +1,9 @@
+lib/rfm_adaptor/database.rb 9efa9db5e58e3891a19d3f87cc31d951df331052
+lib/rfm_adaptor.rb 52d99f6206eccf6d3b414a7da56888447454a6ee
+lib/rfm_adaptor/database/script.rb 404f73957a3ed2e4fdcc6ed3d5b3332eb79034f4
+lib/rfm_adaptor/configuration.rb 94698c69f690250837181527124d2e8b9a8de5a6
+lib/rfm_adaptor/constant.rb 75b418e1028a2d4b04057b703bd093d87999ef25
+lib/rfm_adaptor/database/class_method.rb 8d60a64cd628dda072397a85688c2d2d2153730d
+lib/rfm_adaptor/database/base.rb 76a9e5b1464332a4c5e9fdfbe4dfb54458ae58b5
+lib/rfm_adaptor/connection.rb 9f5a31b065ff068a9d0d3f90e81a627755796d40
+lib/rfm_adaptor/utils.rb 556eb57b7b4aad48714fd0cd89c4e8ae507f3d75

@@ -2,6 +2,7 @@
 
 require "rfm_adaptor/database/class_method"
 
+# Handle database object class
 class RfmAdaptor::Database::Base
   #--------------------#
   # extends
@@ -11,18 +12,21 @@ class RfmAdaptor::Database::Base
   #--------------------#
   # constants
   
+  # default server name.
   DEFAULT_SERVER_NAME = "default"
   
   #--------------------#
   # instance methods
   
-  # Object attributes
+  # database name.
+  # @return [String]
   attr_reader :database_name
   
   # Initialize object
   #
-  # @param database_name  String,Symbol search key for configurations
-  #                                     written in `config/file_maker/database.yml' file (or `config/file_maker/databases/*.yml').
+  # @param database_name  [String,Symbol]
+  #  search key for configurations
+  #  written in `config/file_maker/database.yml' file (or `config/file_maker/databases/*.yml').
   def initialize(database_name)
     super()
     self.database_name = database_name.to_s
@@ -30,13 +34,13 @@ class RfmAdaptor::Database::Base
   end
   
   # Connection to FileMaker database as Rfm::Layout object
-  # @return Rfm::Layout
+  # @return [Rfm::Layout]
   def connection
     self.server[self.database][self.layout]
   end
   
   # Server as Rfm::Server
-  # @return Rfm::Server
+  # @return [Rfm::Server]
   def server
     self._connection.server
   end
@@ -55,13 +59,13 @@ class RfmAdaptor::Database::Base
   attr_writer   :database_name
   
   # Environment
-  # @return String
+  # @return [String]
   def env
     self.class.env
   end
   
   # Setup?
-  # @return Boolean
+  # @return [Boolean]
   def setup?
     self.setup_state == true
   end
@@ -79,24 +83,27 @@ class RfmAdaptor::Database::Base
   #--------------------#
   # connections
   
+  # RfmAdaptor::Connection
   attr_accessor :_connection
   
   # Connection
-  # @return RfmAdaptor::Connection
+  # @return [RfmAdaptor::Connection]
   def _connection
     @_connection ||= self.create_connection
   end
   
   # Setup and returns connection object
-  # @return RfmAdaptor::Connection
+  # @return [RfmAdaptor::Connection]
   def create_connection
     self.setup
     RfmAdaptor::Connection.new(self.server_name)
   end
   
   # Server name written in configuration file (`config/file_maker/database.yml' or `config/file_maker/databases/*.yml') with environment.
-  # @return String
-  # @default  RfmAdaptor::Database::Base::DEFAULT_SERVER_NAME
+  # 
+  # default: RfmAdaptor::Database::Base::DEFAULT_SERVER_NAME
+  #
+  # @return [String]
   def server_name
     self.setup
     @server_name ||= self.attributes["connection"]||self.class::DEFAULT_SERVER_NAME

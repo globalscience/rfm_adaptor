@@ -1,22 +1,22 @@
 # encoding: utf-8
 
+# Handle connection to server.
 class RfmAdaptor::Connection
   
-  #--------------------#
-  # instance methods
+  # configuration.
+  # @return [RfmAdaptor::Configuration]
+  #attr_reader :config
   
-  attr_reader :config
-  
-  # Initialize obejct
-  # @param  server  String  server name to load configuration.
+  # Initialize instance.
+  # @param  server  [String]  server name to load configuration.
   def initialize(server = "default")
     super()
     self.server_name = server.to_s
     self.config = RfmAdaptor::Configuration.load(:connection)
   end
   
-  # Server
-  # @return Rfm::Server
+  # Get Rfm::Server.
+  # @return [Rfm::Server]
   def server
     Rfm::Server.new(self.connect_condition)
   end
@@ -26,20 +26,23 @@ class RfmAdaptor::Connection
   #--------------------#
   
   attr_accessor :server_name
-  attr_writer   :config
+  #attr_writer   :config
+  attr_accessor :config
   
+  # Get password.
+  # @return [String]
   def password
     self.attributes["password"]
   end
   
-  # connection attributes for specified server.
-  # @return Hash
+  # Get connection attributes for specified server.
+  # @return [Hash]
   def attributes
     self.config.__send__(self.server_name)
   end
   
-  # build connection conditions
-  # @return Hash key must be symbolized.
+  # Build connection conditions
+  # @return [Hash] key must be symbolized.
   def connect_condition
     result = {}
     self.connect_condition_keys.each do |k|
@@ -49,15 +52,11 @@ class RfmAdaptor::Connection
     return(result)
   end
   
-  # key list to build condition.
-  # return Array
+  # Get key list to build condition.
+  # @return [Array]
   def connect_condition_keys
     [:host, :port, :ssl, :username, :password]
   end
-  
-  #--------------------#
-  private
-  #--------------------#
   
   # Get attribute unless method not defined.
   # or raise some exceptions.

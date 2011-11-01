@@ -1,16 +1,16 @@
 # encoding: utf-8
 
+# Handle script-request class.
 class RfmAdaptor::Database::Script
-  #--------------------#
-  # class methods
-  
+  # load script configurations and create new instance.
+  # @param database_name [String] database name written as label in configuration file.
+  # @return [RfmAdaptor::Database::Script]
   def self.load_script(database_name)
     self.new(database_name)
   end
   
-  #--------------------#
-  # instance_methods
-  
+  # database name
+  # @return [String]
   attr_reader :database_name
   
   # Initialize object
@@ -21,6 +21,8 @@ class RfmAdaptor::Database::Script
     self.setup
   end
   
+  # List script names
+  # @return [Array]
   def list
     list = []
     self.attributes.each do |k, v|
@@ -29,6 +31,10 @@ class RfmAdaptor::Database::Script
     return(list)
   end
   
+  # Get request parameters
+  # @param script_label [String,Symbol] script label written in configuration file.
+  # @param options      [Hash]          dynamic parameters to replace "%\{Key\}" with VALUE.
+  # @return [Hash] script-request for Rfm::Layout.
   def request(script_label, options = {})
     self.build_request(script_label, options)
   end
@@ -40,11 +46,15 @@ class RfmAdaptor::Database::Script
   attr_writer   :database_name
   attr_accessor :config, :attributes
   
+  # setup instance with configuration file(s).
   def setup
     self.config = RfmAdaptor::Configuration.new(:script)
     self.attributes = self.config.__send__(self.database_name)
   end
   
+  # build script-request for Rfm::Layout.
+  # @param (see #request)
+  # @return [Hash] request for Rfm::Layout.
   def build_request(script_label, options = {})
     params = self.params(script_label)
     name = params["name"]
@@ -60,12 +70,19 @@ class RfmAdaptor::Database::Script
     return(result)
   end
   
+  # parameters for script-request.
+  # @param  script_label [String,Symbol] script label written in configuration file.
+  # @return [Hash] script-request as humanize.
   def params(script_label)
     script_name = self.script_name(script_label)
     script_param = self.script_param(script_label)
-    {"name" => script_name, "param" => script_param}
+    result = {"name" => script_name, "param" => script_param}
+    return(result)
   end
   
+  # get script name by script label
+  # @param (see #params)
+  # @return [String] script name.
   def script_name(script_label)
     label = script_label.to_s
     values = self.attributes[label]
@@ -78,6 +95,9 @@ class RfmAdaptor::Database::Script
     return(result)
   end
   
+  # get script parameter by script label.
+  # @param (see #params)
+  # @return [String] script parameter.
   def script_param(script_label)
     label = script_label.to_s
     values = self.attributes[label]
@@ -92,18 +112,22 @@ class RfmAdaptor::Database::Script
     return(param_value)
   end
   
+  # get script-request's query key.
+  # @return [String]
   def script_request_key
     RfmAdaptor::SCRIPT_REQUEST_KEY
   end
   
+  # get scritp-request-param's query key. 
   def script_param_request_key
     RfmAdaptor::SCRIPT_PARAM_REQUEST_KEY
   end
   
   #--------------------#
-  protected
+  private
   #--------------------#
   
+  # override method_missing, extend object method.
   def method_missing(name, *args, &block)
     unless self.attributes.include?(name.to_s)
       super(name, *args, &block)

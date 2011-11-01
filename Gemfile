@@ -4,3 +4,4 @@ source :rubygems
 gem 'shoulda'
 gem 'lardawge-rfm'
 gem 'active_support'
+gem 'yard'
