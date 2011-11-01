@@ -220,7 +220,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#request-instance_method" title="#request (instance method)">- (Hash) <strong>request</strong>(script_label, options = {}) </a>
+      <a href="#request-instance_method" title="#request (instance method)">- (Hash) <strong>request</strong>(script_label, options = nil) </a>
     
 
     
@@ -334,16 +334,16 @@
       <pre class="lines">
 
 
-131
-132
-133
-134
-135
-136
-137</pre>
+145
+146
+147
+148
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/request/script.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/request/script.rb', line 145</span>
 
 <span class='def def kw'>def</span> <span class='method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='unless unless kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
@@ -561,7 +561,7 @@
       <div class="method_details ">
   <p class="signature " id="request-instance_method">
   
-    - (<tt>Hash</tt>) <strong>request</strong>(script_label, options = {}) 
+    - (<tt>Hash</tt>) <strong>request</strong>(script_label, options = nil) 
   
 
   
@@ -597,7 +597,7 @@
         <span class='type'>(<tt>Hash</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>{}</tt>)</em>
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
         &mdash;
@@ -637,7 +637,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/request/script.rb', line 38</span>
 
-<span class='def def kw'>def</span> <span class='request identifier id'>request</span><span class='lparen token'>(</span><span class='script_label identifier id'>script_label</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+<span class='def def kw'>def</span> <span class='request identifier id'>request</span><span class='lparen token'>(</span><span class='script_label identifier id'>script_label</span><span class='comma token'>,</span> <span class='options identifier id'>options</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
   <span class='self self kw'>self</span><span class='dot token'>.</span><span class='build_request identifier id'>build_request</span><span class='lparen token'>(</span><span class='script_label identifier id'>script_label</span><span class='comma token'>,</span> <span class='options identifier id'>options</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
@@ -651,7 +651,7 @@
 </div>
     
     <div id="footer">
-  Generated on Tue Nov  1 14:41:02 2011 by 
+  Generated on Tue Nov  1 17:07:10 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>
