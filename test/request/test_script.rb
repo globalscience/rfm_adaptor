@@ -1,12 +1,12 @@
 # encoding: utf-8
 
-require File.join(File.dirname(__FILE__), "test_helper")
+#require File.join(File.dirname(__FILE__), "test_helper")
 
-class TestConfiguration < Test::Unit::TestCase
+class Request::TestScript < Test::Unit::TestCase
   context "Script" do
     setup do
       @database_name = "people"
-      @script = RfmAdaptor::Database::Script.load_script(@database_name)
+      @script = RfmAdaptor::Request::Script.load_script(@database_name)
     end
     
     should "respond to list" do

@@ -1,10 +1,10 @@
 # encoding: utf-8
 
 # Handle script-request class.
-class RfmAdaptor::Database::Script
+class RfmAdaptor::Request::Script
   # load script configurations and create new instance.
   # @param database_name [String] database name written as label in configuration file.
-  # @return [RfmAdaptor::Database::Script]
+  # @return [RfmAdaptor::Request::Script]
   def self.load_script(database_name)
     self.new(database_name)
   end
@@ -21,8 +21,8 @@ class RfmAdaptor::Database::Script
     self.setup
   end
   
-  # List script names
-  # @return [Array]
+  # List script names.
+  # @return [Array<String>]
   def list
     list = []
     self.attributes.each do |k, v|
@@ -31,7 +31,7 @@ class RfmAdaptor::Database::Script
     return(list)
   end
   
-  # Get request parameters
+  # Get request parameters.
   # @param script_label [String,Symbol] script label written in configuration file.
   # @param options      [Hash]          dynamic parameters to replace "%\{Key\}" with VALUE.
   # @return [Hash] script-request for Rfm::Layout.
