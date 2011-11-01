@@ -32,3 +32,5 @@ _$*
 ._*
 log/*
 cache/*
+.yardoc
+.yardoc/*
