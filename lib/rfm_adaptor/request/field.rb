@@ -24,11 +24,7 @@ class RfmAdaptor::Request::Field
   # List field names.
   # @return [Array<String>]
   def list
-    list = []
-    self.attributes.each do |k, v|
-      list << k.to_s
-    end
-    return(list)
+    self.keys
   end
   
   # Get request parameters.
@@ -38,17 +34,25 @@ class RfmAdaptor::Request::Field
     self.build_request(queries)
   end
   
+  # List FileMaker field names.
+  # @return [Array<String>]
+  def fields
+    self.values
+  end
+  
   #--------------------#
   protected
   #--------------------#
   
   attr_writer :database_name
   attr_accessor :config, :attributes
+  attr_accessor :keys, :values
 
   # setup instance with configuration file(s).
   def setup
     self.config = RfmAdaptor::Configuration.new(:field)
     self.attributes = self.config.__send__(self.database_name)
+    self.setup_key_values
   end
   
   # Build field-request for Rfm::Layout.
@@ -61,6 +65,17 @@ class RfmAdaptor::Request::Field
       request[key] = v.to_s
     end
     return(request)
+  end
+  
+  # Get keys and values of attributes.
+  # @return [Hash]
+  def setup_key_values
+    self.keys = []
+    self.values = []
+    self.attributes.each do |k, v|
+      self.keys << k.to_s
+      self.values << v.to_s
+    end
   end
   
   #--------------------#

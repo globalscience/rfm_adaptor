@@ -1,5 +1,5 @@
 # encoding: utf-8
 
 people:
-  customer_name:  "people::customer_name"
-  
+  customer_name:  "person_customer::name"
+  customer_tel: "person_customer::tel"

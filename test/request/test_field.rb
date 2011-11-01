@@ -12,7 +12,13 @@ class Request::TestField < Test::Unit::TestCase
     end
     
     should "build request" do
-      p @field.request(:name => "joe", :customer_name => "GlobalScience")
+      assert_nothing_raised do
+        @field.request(:name => "joe", :customer_name => "GlobalScience")
+      end
+    end
+    
+    should "respond to fields" do
+      assert_respond_to(@field, :fields)
     end
   end
 end
