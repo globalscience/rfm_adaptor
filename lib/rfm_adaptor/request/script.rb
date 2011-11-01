@@ -76,13 +76,25 @@ class RfmAdaptor::Request::Script
     case options
     when Hash
       options.each do |k, v|
-        script_param.gsub!(/%\{#{k.to_s}\}/, v.to_s)
+        script_param.gsub!(/%\{#{k.to_s}\}/, normalize_script_param_value(v))
       end
     else
-      script_param = options.to_s
+      script_param = self.normalize_script_param_value(options)
     end
     return(script_param)
-  end 
+  end
+  
+  # Normalize script param value.
+  # @param value [Object]
+  # @return [Object]
+  def normalize_script_param_value(value)
+    case value
+    when Numeric, Symbol
+      value.to_s
+    else
+      value
+    end
+  end
   
   # parameters for script-request.
   # @param  script_label [String,Symbol] script label written in configuration file.

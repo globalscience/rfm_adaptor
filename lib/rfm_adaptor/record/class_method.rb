@@ -48,6 +48,12 @@ module RfmAdaptor::Record::ClassMethod
     self.find!
   end
   
+  def where(value = {})
+    raise "Value must be a Hash." unless value.is_a?(Hash)
+    self.append_conditions(value) unless value.blank?
+    self
+  end
+  
   #--------------------#
   protected
   #--------------------#
@@ -57,6 +63,18 @@ module RfmAdaptor::Record::ClassMethod
   
   # Request conditions.
   attr_accessor :conditions
+  
+  # Request conditions.
+  # @return [Hash]
+  def conditions
+    @conditions ||= {}
+  end
+  
+  # Append conditions.
+  # @param value [Hash] update conditions.
+  def append_conditions(value = {})
+    self.conditions.merge!(value)
+  end
   
   # Get default database name.
   def default_database_name
@@ -74,7 +92,7 @@ module RfmAdaptor::Record::ClassMethod
   # Normalize conditions as `all' request.
   # @param args Ignored in this method.
   def normalize_conditions_with_all(args)
-    self.conditions = nil
+    self.conditions = {}
   end
   
   # Normalize conditions as script-request.
@@ -84,15 +102,20 @@ module RfmAdaptor::Record::ClassMethod
   #   Second argument: Script parameter(Hash or Value).
   def normalize_conditions_with_script(args)
     config = SCRIPT_REQUEST_BUILDER.load_config(self.database_name)
-    self.conditions = config.request(args.first, args[1])
+    self.append_conditions(config.request(args.first, args[1]))
   end
   
   # Normalize conditions as field-request.
   # @param args [Hash] Key-Value pairs.
   def normalize_conditions_with_field(args)
     config = FIELD_REQUEST_BUILDER.load_config(self.database_name)
-    template = Hash[*args.flatten]
-    self.conditions = config.request(template)
+    case args.count % 2
+    when 1
+      template = args.first
+    else
+      template = Hash[*args.flatten]
+    end
+    self.append_conditions(config.request(template))
   end
   
   # Send request to server, finally.

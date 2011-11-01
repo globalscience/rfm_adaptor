@@ -59,12 +59,32 @@ class RfmAdaptor::Request::Field
   # @param (see #request)
   # @return [Hash]
   def build_request(queries)
+    queries = self.normalize_queries(queries)
     request = {}
     queries.each do |k, v|
       key = self.attributes.include?(k.to_s) ? self.__send__(k) : k.to_s
-      request[key] = v.to_s
+      request[key] = self.normalize_query_value(v)
     end
     return(request)
+  end
+  
+  # Normalize queries.
+  # @param queries [Object]
+  # @return [Hash]
+  def normalize_queries(queries)
+    case queries
+    when Hash
+      queries
+    else
+      {"id" => queries}
+    end
+  end
+  
+  # Normalize query value.
+  # @param value [Object]
+  # @return [Object]
+  def normalize_query_value(value)
+    value
   end
   
   # Get keys and values of attributes.

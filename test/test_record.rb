@@ -11,7 +11,8 @@ class TestRecord < Test::Unit::TestCase
       @class_methods = {
         :new => {},
         :find => {:name => "Joe"},
-        :all => nil
+        :all => nil,
+        :find => 30
       }
       
       @scripts = [
