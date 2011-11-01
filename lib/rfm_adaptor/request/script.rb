@@ -35,7 +35,7 @@ class RfmAdaptor::Request::Script
   # @param script_label [String,Symbol] script label written in configuration file.
   # @param options      [Hash]          dynamic parameters to replace "%\{Key}" with Value.
   # @return [Hash] script-request for Rfm::Layout.
-  def request(script_label, options = {})
+  def request(script_label, options = nil)
     self.build_request(script_label, options)
   end
   
@@ -55,20 +55,34 @@ class RfmAdaptor::Request::Script
   # build script-request for Rfm::Layout.
   # @param (see #request)
   # @return [Hash] request for Rfm::Layout.
-  def build_request(script_label, options = {})
+  def build_request(script_label, options = nil)
     params = self.params(script_label)
     name = params["name"]
-    param = params["param"]
-    
-    options.each do |k, v|
-      param.gsub!(/%\{#{k.to_s}\}/, v.to_s)
-    end unless param.blank?
+    param = self.normalize_script_param(params["param"], options)
     
     result = {}
     result[self.script_request_key] = name
     result[self.script_param_request_key] = param unless param.blank?
     return(result)
   end
+  
+  # Normalize script-request-param
+  # @param param [Hash, Object]
+  def normalize_script_param(script_param, options = nil)
+    return(nil) if script_param.blank?
+    
+    options ||= {}
+    
+    case options
+    when Hash
+      options.each do |k, v|
+        script_param.gsub!(/%\{#{k.to_s}\}/, v.to_s)
+      end
+    else
+      script_param = options.to_s
+    end
+    return(script_param)
+  end 
   
   # parameters for script-request.
   # @param  script_label [String,Symbol] script label written in configuration file.

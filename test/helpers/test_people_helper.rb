@@ -1,5 +1,4 @@
 # encoding: utf-8
 
-class Person < RfmAdaptor::Table::Base
-  
+class Person < RfmAdaptor::Record::Base
 end

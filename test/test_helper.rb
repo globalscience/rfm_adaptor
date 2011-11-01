@@ -8,6 +8,8 @@ require "shoulda"
 
 require "init"
 
+require "test/helpers/test_people_helper"
+
 unless defined? Rails
   class Rails
     def self.env=(value)
