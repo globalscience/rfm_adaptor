@@ -34,7 +34,4 @@ log/*
 cache/*
 .yardoc
 .yardoc/*
-.yardoc
-.yardoc/objects
-.yardoc/checksums
-.yardoc/proxy_types
+
