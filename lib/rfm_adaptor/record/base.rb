@@ -11,17 +11,19 @@ class RfmAdaptor::Record::Base
   extend RfmAdaptor::Record::ClassMethod
   
   # Create instance
-  # @param attributes [Hash] field_name - value pairs.
+  # @param params [Hash] attributes or request-params.
   # @return [RfmAdaptor::Record]
-  def initialize(attributes = {})
+  def initialize(params = {})
     super()
-    self.attributes = attributes
-    self.setup
+    self.setup(params)
   end
   
   #--------------------#
   protected
   #--------------------#
+  
+  # Request parametors
+  attr_accessor :request_params
   
   # Attributes.
   attr_accessor :attributes
@@ -33,9 +35,12 @@ class RfmAdaptor::Record::Base
   attr_accessor :request_builder
   
   # Setup instance.
-  def setup
+  def setup(params)
     self.database = RfmAdaptor::Database::Base.new(self.class.database_name)
     self.request_builder = self.class::REQUEST_BUILDER
+    
+    # TODO setup attributes and request-params.
+    
   end
   
 end

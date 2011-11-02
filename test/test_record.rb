@@ -8,32 +8,15 @@ class TestRecord < Test::Unit::TestCase
       @klass = RfmAdaptor::Record::Base
       @klass = Person
       
-      @class_methods = {
-        :new => {},
-        :find => {:name => "Joe"},
-        :all => nil,
-        :find => 30
-      }
-      
-      @scripts = [
-        [:sort_by_age],
-        [:search_by_age, {:age => 30}],
-        [:search_by_age, 30],
-        [:sort_by_address, {:order => :desc}],
-        [:sort_by_address_asc],
-        [:sort_by_address_asc, {:order => :desc}]
-      ]
+      @class_methods = TestRequestHelper.test_class_methods
+      @scripts = TestRequestHelper.test_scripts
 
     end
     
     should "responds and return methods" do
       @class_methods.each do |m, ar|
         assert_nothing_raised do
-          if ar.nil?
-             @klass.__send__(m)
-           else
-             @klass.__send__(m, *ar)
-          end
+          ar.nil? ? @klass.__send__(m) : @klass.__send__(m, *ar)
         end
       end
     end
@@ -44,6 +27,14 @@ class TestRecord < Test::Unit::TestCase
           @klass.script(sc[0], sc[1])
         end
       end
+    end
+    
+    should "return responce" do
+      assert_equal(@klass, @klass.where(:name => "Joe"))
+      assert_kind_of(@klass, @klass.find(:name => "Joe"))
+      assert_kind_of(@klass, @klass.script(@scripts.first))
+      assert_kind_of(@klass, @klass.all)
+      assert_kind_of(@klass, @klass.new)
     end
   end
 end

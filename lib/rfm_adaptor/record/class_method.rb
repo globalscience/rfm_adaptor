@@ -29,7 +29,7 @@ module RfmAdaptor::Record::ClassMethod
   # @return [RfmAdaptor::ResultSet]
   def find(conditions)
     conditions =  self.normalize_conditions(:field, conditions)
-    self.find!
+    self.setup_request
   end
   
   # Send script request to server.
@@ -38,14 +38,14 @@ module RfmAdaptor::Record::ClassMethod
   # @return [RfmAdaptor::ResultSet]
   def script(name, param = nil)
     self.normalize_conditions(:script, name, param)
-    self.find!
+    self.setup_request
   end
   
   # Send search all records request to server.
   # @return [RfmAdaptor::ResultSet]
   def all
     self.normalize_conditions(:all)
-    self.find!
+    self.setup_request
   end
   
   def where(value = {})
@@ -73,7 +73,9 @@ module RfmAdaptor::Record::ClassMethod
   # Append conditions.
   # @param value [Hash] update conditions.
   def append_conditions(value = {})
-    self.conditions.merge!(value)
+    value.each do |k, v|
+      self.conditions[k.to_s] = v
+    end
   end
   
   # Get default database name.
@@ -102,7 +104,7 @@ module RfmAdaptor::Record::ClassMethod
   #   Second argument: Script parameter(Hash or Value).
   def normalize_conditions_with_script(args)
     config = SCRIPT_REQUEST_BUILDER.load_config(self.database_name)
-    self.append_conditions(config.request(args.first, args[1]))
+    self.conditions = config.request(args.first, args[1])
   end
   
   # Normalize conditions as field-request.
@@ -119,7 +121,10 @@ module RfmAdaptor::Record::ClassMethod
   end
   
   # Send request to server, finally.
-  def find!
-    puts "find!: #{self.conditions.inspect}"
+  def setup_request
+    write_log.debug(self.conditions)
+    instance = self.new(self.conditions)
+    self.conditions = {}
+    return(instance)
   end
 end

@@ -8,7 +8,10 @@ require "shoulda"
 
 require "init"
 
+write_log.debug "Start test."
+
 require "test/helpers/test_people_helper"
+require "test/helpers/test_request_helper"
 
 unless defined? Rails
   class Rails
