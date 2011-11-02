@@ -102,6 +102,27 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#create_rfm_adaptor_logger-instance_method" title="#create_rfm_adaptor_logger (instance method)">- (Object) <strong>create_rfm_adaptor_logger</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>Create logger object.</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#rp-instance_method" title="#rp (instance method)">- (Object) <strong>rp</strong>(*args) </a>
     
 
@@ -120,6 +141,27 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#write_log-instance_method" title="#write_log (instance method)">- (Object) <strong>write_log</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>Get logger.</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -130,7 +172,53 @@
     
     
       <div class="method_details first">
-  <p class="signature first" id="rp-instance_method">
+  <p class="signature first" id="create_rfm_adaptor_logger-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_rfm_adaptor_logger</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    Create logger object
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12
+13
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/utils.rb', line 10</span>
+
+<span class='def def kw'>def</span> <span class='create_rfm_adaptor_logger identifier id'>create_rfm_adaptor_logger</span>
+  <span class='log_dir identifier id'>log_dir</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='comma token'>,</span> <span class='string val'>&quot;log&quot;</span><span class='rparen token'>)</span>
+  <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='mkdir_p identifier id'>mkdir_p</span><span class='lparen token'>(</span><span class='log_dir identifier id'>log_dir</span><span class='rparen token'>)</span>
+  <span class='log_path identifier id'>log_path</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='log_dir identifier id'>log_dir</span><span class='comma token'>,</span> <span class='string val'>&quot;rfm_adaptor.log&quot;</span><span class='rparen token'>)</span>
+  <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='touch identifier id'>touch</span><span class='lparen token'>(</span><span class='log_path identifier id'>log_path</span><span class='rparen token'>)</span>
+  <span class='Logger constant id'>Logger</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='log_path identifier id'>log_path</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="rp-instance_method">
   
     - (<tt>Object</tt>) <strong>rp</strong>(*args) 
   
@@ -182,17 +270,55 @@
       <pre class="lines">
 
 
-11
-12
-13
-14</pre>
+26
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/utils.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/utils.rb', line 26</span>
 
 <span class='def def kw'>def</span> <span class='rp identifier id'>rp</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
   <span class='p identifier id'>p</span><span class='lparen token'>(</span><span class='args identifier id'>args</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='rparen token'>)</span>
   <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='args identifier id'>args</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="write_log-instance_method">
+  
+    - (<tt>Object</tt>) <strong>write_log</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    Get logger.
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/utils.rb', line 19</span>
+
+<span class='def def kw'>def</span> <span class='write_log identifier id'>write_log</span>
+  <span class='@rfm_logger ivar id'>@rfm_logger</span> <span class='opasgn op'>||=</span> <span class='create_rfm_adaptor_logger identifier id'>create_rfm_adaptor_logger</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -205,7 +331,7 @@
 </div>
     
     <div id="footer">
-  Generated on Tue Nov  1 17:45:48 2011 by 
+  Generated on Wed Nov  2 17:50:24 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>
