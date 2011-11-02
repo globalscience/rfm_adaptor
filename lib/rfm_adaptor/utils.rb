@@ -7,6 +7,7 @@ require "logger"
 # Utilities for RfmAdaptor plugin.
 module RfmAdaptor::Util
   # Create logger object
+  # @return [Logger]
   def create_rfm_adaptor_logger
     log_dir = File.join(RfmAdaptor.root, "log")
     FileUtils.mkdir_p(log_dir)
@@ -16,6 +17,7 @@ module RfmAdaptor::Util
   end
   
   # Get logger.
+  # @return [Logger]
   def write_log
     @rfm_logger ||= create_rfm_adaptor_logger
   end

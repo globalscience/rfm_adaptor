@@ -48,6 +48,9 @@ module RfmAdaptor::Record::ClassMethod
     self.setup_request
   end
   
+  # Append conditions
+  # @param value [Hash] field conditions.
+  # @return [RfmAdaptor::Record::Base]
   def where(value = {})
     raise "Value must be a Hash." unless value.is_a?(Hash)
     self.append_conditions(value) unless value.blank?
@@ -121,6 +124,7 @@ module RfmAdaptor::Record::ClassMethod
   end
   
   # Send request to server, finally.
+  # @return [RfmAdaptor::Record::Base]
   def setup_request
     write_log.debug(self.conditions)
     instance = self.new(self.conditions)
