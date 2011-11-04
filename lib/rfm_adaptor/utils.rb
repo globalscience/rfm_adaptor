@@ -18,8 +18,13 @@ module RfmAdaptor::Util
   
   # Get logger.
   # @return [Logger]
-  def write_log
+  def write_log(&block)
     @rfm_logger ||= create_rfm_adaptor_logger
+    if block_given?
+      yield(@rfm_logger)
+    else
+      @rfm_logger
+    end
   end
   
   # Act as `p' and returns a value.
@@ -29,6 +34,21 @@ module RfmAdaptor::Util
     p(args.first)
     return(args.first)
   end
+  
+  # Check value as boolean?
+  # @param value [Object] value to check.
+  # @return [TrueClass, FalseClass]
+  def boolean?(value)
+    ((value.is_a?(TrueClass)) || (value.is_a?(FalseClass)))
+  end
+  
+  # Require file in this library.
+  # @param path [String] Relative path to file from `RfmAdaptor.root'.
+  def require_my(path)
+    absolute_path = path.match(/^\//) ? path : File.join(RfmAdaptor.lib_root, path)
+    require absolute_path
+  end
 end
 
 include RfmAdaptor::Util
+

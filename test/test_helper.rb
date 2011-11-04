@@ -66,6 +66,14 @@ module RfmAdaptor
       result << "\n"
       return(result)
     end
+    
+    def test_respond_methods(target, tests, &block)
+      tests.each do |m, ar|
+        assert_nothing_raised do
+          ar.nil? ? target.__send__(m) : target.__send__(m, *ar)
+        end
+      end
+    end
   end
 end
 

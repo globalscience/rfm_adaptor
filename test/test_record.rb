@@ -10,15 +10,14 @@ class TestRecord < Test::Unit::TestCase
       
       @class_methods = TestRequestHelper.test_class_methods
       @scripts = TestRequestHelper.test_scripts
-
+      
+      @name = "Joe"
+      @record = @klass.new("name" => @name)
+      @instance_methods = TestRequestHelper.test_instance_methods
     end
     
     should "responds and return methods" do
-      @class_methods.each do |m, ar|
-        assert_nothing_raised do
-          ar.nil? ? @klass.__send__(m) : @klass.__send__(m, *ar)
-        end
-      end
+      test_respond_methods(@klass, @class_methods)
     end
     
     should "build script request" do
@@ -29,12 +28,40 @@ class TestRecord < Test::Unit::TestCase
       end
     end
     
-    should "return responce" do
-      assert_equal(@klass, @klass.where(:name => "Joe"))
-      assert_kind_of(@klass, @klass.find(:name => "Joe"))
+    should "class method return responce" do
+      assert_equal(@klass, @klass.where(:name => @name))
+      assert_kind_of(@klass, @klass.find(:name => @name))
       assert_kind_of(@klass, @klass.script(@scripts.first))
       assert_kind_of(@klass, @klass.all)
       assert_kind_of(@klass, @klass.new)
+    end
+    
+    context "instance method" do
+      should "respond to `update_attributes'" do
+        assert_respond_to(@record, :update_attributes)
+        assert(boolean?(@record.update_attributes(:name => @name)))
+      end
+      
+      should "respond to `save'" do
+        assert_respond_to(@record, :save)
+        assert(boolean?(@record.save))
+      end
+      
+      should "respond to `save!'" do
+        assert_respond_to(@record, :save!)
+        assert(boolean?(@record.save!))
+      end
+      
+      should "respond to `destroy'" do
+        assert_respond_to(@record, :destroy)
+        assert(boolean?(@record.destroy))
+      end
+    end
+    
+    should "respond to attribute as method" do
+      assert_nothing_raised do
+        @record.name
+      end
     end
   end
 end

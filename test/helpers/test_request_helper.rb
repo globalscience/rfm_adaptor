@@ -20,4 +20,13 @@ module TestRequestHelper
         [:sort_by_address_asc, {:order => :desc}]
       ]
   end
+  
+  def self.test_instance_methods
+    [
+      [:update_attributes, {:name => @name}],
+      [:save],
+      [:save!],
+      [:destroy]
+    ]
+  end
 end
