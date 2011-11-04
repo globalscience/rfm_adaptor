@@ -4,7 +4,7 @@
 # connections
 
 default:
-    host:     "FileMakerServer"  # FileMakerServer's IP-address or hostname
+    host:     "FileMaker"  # FileMakerServer's IP-address or hostname
     port:     80
     ssl:      false
     username: "Administrator"

@@ -4,7 +4,7 @@
 # connections
 
 test_server:
-    host:     "test_server.localnet"  # FileMakerServer's IP-address or hostname
+    host:     "fmsv01"  # FileMakerServer's IP-address or hostname
     port:     80
     ssl:      false
     username: "test_user"
