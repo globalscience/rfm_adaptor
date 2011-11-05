@@ -2,30 +2,31 @@
 
 require File.join(File.dirname(__FILE__), "test_helper")
 
-module Request
+module RequestBuilder
 end
 
-Dir.entries(File.join(File.dirname(__FILE__), "request")).each do |file|
-  require "request/#{file}" if file.match(/\.rb$/)
+Dir.entries(File.join(File.dirname(__FILE__), "request_builder")).each do |file|
+  require "request_builder/#{file}" if file.match(/\.rb$/)
 end
 
-class TestRequest < Test::Unit::TestCase
-  context "Request" do
+class TestRequestBuilder < Test::Unit::TestCase
+  context "RequestBuilder" do
     setup do
+      @builder = RfmAdaptor::RequestBuilder
       @request_methods = [:script, :field]
     end
     
     should "respond to methods" do
       @request_methods.each do |m|
         assert_nothing_raised do
-          RfmAdaptor::Request.__send__(m)
+          @builder.__send__(m)
         end
       end
     end
     
     should "raise NoMethodError" do
       assert_raise(NoMethodError) do
-        RfmAdaptor::Request.dummy
+        @builder.dummy
       end
     end
   end

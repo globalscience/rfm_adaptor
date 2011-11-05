@@ -55,7 +55,7 @@ class RfmAdaptor::Connection
   # Get key list to build condition.
   # @return [Array]
   def connect_condition_keys
-    [:host, :port, :ssl, :username, :password]
+    [:host, :port, :ssl, :account_name, :password]
   end
   
   # Get attribute unless method not defined.
@@ -68,6 +68,9 @@ class RfmAdaptor::Connection
         
       when name.to_s =~ /password/
         super(name, *args, &block)
+        
+      when name.to_s =~ /account_name/
+        self.attributes["account_name"]||self.attributes["username"]
         
       when self.attributes.include?(name.to_s)
         self.attributes[name.to_s]

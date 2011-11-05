@@ -11,6 +11,7 @@ module RfmAdaptor
   end
   
   # Path to RfmAdaptor library directory
+  # @return [String]
   def self.lib
     File.join(self.root, "lib")
   end
@@ -28,5 +29,5 @@ require "rfm_adaptor/constant"
 require "rfm_adaptor/configuration"
 require "rfm_adaptor/connection"
 require "rfm_adaptor/database"
-require "rfm_adaptor/request"
+require "rfm_adaptor/request_builder"
 require "rfm_adaptor/record"

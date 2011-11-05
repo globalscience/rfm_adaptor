@@ -11,7 +11,7 @@ require "init"
 write_log.debug "Start test."
 
 require "test/helpers/test_people_helper"
-require "test/helpers/test_request_helper"
+require "test/helpers/test_record_helper"
 
 unless defined? Rails
   class Rails
@@ -34,6 +34,13 @@ end
 module RfmAdaptor
   # test helper
   module TestHelper
+    
+    def require_test_helper(relative_path)
+      base = File.expand_path(File.join(File.dirname(__FILE__), "helpers"))
+      path = File.join(base, relative_path)
+      require path
+    end
+    
     def rfm_test_environments
       [:development, :test, :production]
     end

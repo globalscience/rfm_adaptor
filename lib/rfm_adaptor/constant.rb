@@ -12,6 +12,8 @@ module RfmAdaptor::Constant
   SCRIPT_REQUEST_KEY  = "-script"
   # FileMaker script-request parameter query key.
   SCRIPT_PARAM_REQUEST_KEY = "-script.param"
+  # FileMaker default id label
+  DEFAULT_ID_FIELD_LABEL = "id"
 end
 
 module RfmAdaptor

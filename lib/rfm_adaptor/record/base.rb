@@ -6,7 +6,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), "class_method"))
 class RfmAdaptor::Record::Base
   
   # Request builder.
-  REQUEST_BUILDER = RfmAdaptor::Request
+  REQUEST_BUILDER = RfmAdaptor::RequestBuilder
   
   extend RfmAdaptor::Record::ClassMethod
   

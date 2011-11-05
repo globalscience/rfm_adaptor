@@ -1,12 +1,13 @@
 # encoding: utf-8
 
-module TestRequestHelper
+module TestRecordHelper
   def self.test_class_methods
     {
         :new => {},
         :find => {:name => "Joe"},
         :all => nil,
-        :find => 30
+        :find => 1,
+        :script => ["search_by_age", {:age => 39}]
       }
   end
   

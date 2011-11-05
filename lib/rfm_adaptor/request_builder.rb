@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # Handle request module
-module RfmAdaptor::Request
+module RfmAdaptor::RequestBuilder
   #--------------------#
   private
   #--------------------#
@@ -17,5 +17,6 @@ module RfmAdaptor::Request
   end
 end
 
-require "rfm_adaptor/request/script"
-require "rfm_adaptor/request/field"
+require "rfm_adaptor/request_builder/base"
+require "rfm_adaptor/request_builder/script"
+require "rfm_adaptor/request_builder/field"

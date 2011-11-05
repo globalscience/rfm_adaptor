@@ -13,7 +13,9 @@ module RfmAdaptor::Util
     FileUtils.mkdir_p(log_dir)
     log_path = File.join(log_dir, "rfm_adaptor.log")
     FileUtils.touch(log_path)
-    Logger.new(log_path)
+    logger = Logger.new(log_path)
+    logger.formatter = Logger::Formatter.new
+    return(logger)
   end
   
   # Get logger.

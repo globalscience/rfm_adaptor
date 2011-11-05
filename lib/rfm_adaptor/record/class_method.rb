@@ -4,10 +4,10 @@
 module RfmAdaptor::Record::ClassMethod
   
   # script-request builder
-  SCRIPT_REQUEST_BUILDER = RfmAdaptor::Request::Script
+  SCRIPT_REQUEST_BUILDER = RfmAdaptor::RequestBuilder::Script
   
   # field-request builder
-  FIELD_REQUEST_BUILDER =  RfmAdaptor::Request::Field
+  FIELD_REQUEST_BUILDER =  RfmAdaptor::RequestBuilder::Field
   
   # Update database name.
   # @param value [String, Symbol]
@@ -28,8 +28,7 @@ module RfmAdaptor::Record::ClassMethod
   #   Numeric: search as ID.
   # @return [RfmAdaptor::ResultSet]
   def find(conditions)
-    conditions =  self.normalize_conditions(:field, conditions)
-    self.setup_request
+    self.request.new(self.database_name, conditions)
   end
   
   # Send script request to server.
@@ -37,24 +36,20 @@ module RfmAdaptor::Record::ClassMethod
   # @param param [Hash, String, nil] script parameter.
   # @return [RfmAdaptor::ResultSet]
   def script(name, param = nil)
-    self.normalize_conditions(:script, name, param)
-    self.setup_request
+    self.script_request.new(self.database_name, name, param)
   end
   
   # Send search all records request to server.
-  # @return [RfmAdaptor::ResultSet]
-  def all
-    self.normalize_conditions(:all)
-    self.setup_request
+  # @return [RfmAdaptor::RequestBuilder]
+  def all(conditions)
+    self.request.all(self.database_name)
   end
   
   # Append conditions
   # @param value [Hash] field conditions.
   # @return [RfmAdaptor::Record::Base]
-  def where(value = {})
-    raise "Value must be a Hash." unless value.is_a?(Hash)
-    self.append_conditions(value) unless value.blank?
-    self
+  def where(conditions)
+    self.request.new(self.database_name, conditions)
   end
   
   #--------------------#
@@ -63,72 +58,17 @@ module RfmAdaptor::Record::ClassMethod
   
   # Update database_name
   attr_writer   :database_name
-  
-  # Request conditions.
-  attr_accessor :conditions
-  
-  # Request conditions.
-  # @return [Hash]
-  def conditions
-    @conditions ||= {}
-  end
-  
-  # Append conditions.
-  # @param value [Hash] update conditions.
-  def append_conditions(value = {})
-    value.each do |k, v|
-      self.conditions[k.to_s] = v
-    end
-  end
-  
+
   # Get default database name.
   def default_database_name
     self.name.tableize
   end
   
-  # Normalize conditions by request type.
-  # @param request_type [String,Symbol] request_type(:all, :script, :field).
-  # @return [Hash]
-  def normalize_conditions(request_type, *args)
-    method_name = "normalize_conditions_with_#{request_type}"
-    self.__send__(method_name, args)
+  def script_request
+    SCRIPT_REQUEST_BUILDER
   end
   
-  # Normalize conditions as `all' request.
-  # @param args Ignored in this method.
-  def normalize_conditions_with_all(args)
-    self.conditions = {}
-  end
-  
-  # Normalize conditions as script-request.
-  # @param args [Array<String, Hash>]
-  #   First argument: Script name.
-  #
-  #   Second argument: Script parameter(Hash or Value).
-  def normalize_conditions_with_script(args)
-    config = SCRIPT_REQUEST_BUILDER.load_config(self.database_name)
-    self.conditions = config.request(args.first, args[1])
-  end
-  
-  # Normalize conditions as field-request.
-  # @param args [Hash] Key-Value pairs.
-  def normalize_conditions_with_field(args)
-    config = FIELD_REQUEST_BUILDER.load_config(self.database_name)
-    case args.count % 2
-    when 1
-      template = args.first
-    else
-      template = Hash[*args.flatten]
-    end
-    self.append_conditions(config.request(template))
-  end
-  
-  # Send request to server, finally.
-  # @return [RfmAdaptor::Record::Base]
-  def setup_request
-    write_log.debug(self.conditions)
-    instance = self.new(self.conditions)
-    self.conditions = {}
-    return(instance)
+  def request
+    FIELD_REQUEST_BUILDER
   end
 end
