@@ -273,7 +273,10 @@ or raise some exceptions.
 76
 77
 78
-79</pre>
+79
+80
+81
+82</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/connection.rb', line 63</span>
@@ -286,6 +289,9 @@ or raise some exceptions.
       
     <span class='when when kw'>when</span> <span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='match op'>=~</span> <span class='regexp val'>/password/</span>
       <span class='super super kw'>super</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+      
+    <span class='when when kw'>when</span> <span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='match op'>=~</span> <span class='regexp val'>/account_name/</span>
+      <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='string val'>&quot;account_name&quot;</span><span class='rbrack token'>]</span><span class='orop op'>||</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='string val'>&quot;username&quot;</span><span class='rbrack token'>]</span>
       
     <span class='when when kw'>when</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
       <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
@@ -364,7 +370,7 @@ or raise some exceptions.
 </div>
     
     <div id="footer">
-  Generated on Fri Nov  4 10:13:22 2011 by 
+  Generated on Sat Nov  5 18:18:02 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>

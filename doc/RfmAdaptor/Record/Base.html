@@ -122,7 +122,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='colon2 op'>::</span><span class='Request constant id'>Request</span>
+        <dd><pre class="code"><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='colon2 op'>::</span><span class='RequestBuilder constant id'>RequestBuilder</span>
 </pre></dd>
       
     </dl>
@@ -144,7 +144,7 @@
   <h2>Instance Attribute Summary</h2>
   
   <h3 class="inherited">Attributes included from <span class='object_link'><a href="ClassMethod.html" title="RfmAdaptor::Record::ClassMethod (module)">ClassMethod</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ClassMethod.html#conditions-instance_method" title="RfmAdaptor::Record::ClassMethod#conditions (method)">conditions</a></span>, <span class='object_link'><a href="ClassMethod.html#database_name-instance_method" title="RfmAdaptor::Record::ClassMethod#database_name (method)">database_name</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ClassMethod.html#database_name-instance_method" title="RfmAdaptor::Record::ClassMethod#database_name (method)">database_name</a></span></p>
 
 
   
@@ -154,6 +154,27 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#count-instance_method" title="#count (instance method)">- (Object) <strong>count</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -172,6 +193,27 @@
 
   
     <span class="summary_desc"><div class='inline'>Delete from database.</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#each-instance_method" title="#each (instance method)">- (Object) <strong>each</strong>(&amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -202,7 +244,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#save-instance_method" title="#save (instance method)">- (Boolean) <strong>save</strong> </a>
+      <a href="#save-instance_method" title="#save (instance method)">- (TrueClass, FalseClass) <strong>save</strong> </a>
     
 
     
@@ -223,7 +265,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#save%21-instance_method" title="#save! (instance method)">- (Boolean) <strong>save!</strong> </a>
+      <a href="#save%21-instance_method" title="#save! (instance method)">- (TrueClass, FalseClass) <strong>save!</strong> </a>
     
 
     
@@ -236,8 +278,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>Force save attributes to server
-TODO implements methods.</div></span>
+    <span class="summary_desc"><div class='inline'>Force save attributes to server.</div></span>
   
 </li>
 
@@ -245,7 +286,28 @@ TODO implements methods.</div></span>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_attributes-instance_method" title="#update_attributes (instance method)">- (Boolean) <strong>update_attributes</strong>(values = {}) </a>
+      <a href="#update_attribute-instance_method" title="#update_attribute (instance method)">- (TrueClass) <strong>update_attribute</strong>(attribute, value) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>Update attribute.</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_attributes-instance_method" title="#update_attributes (instance method)">- (TrueClass, FalseClass) <strong>update_attributes</strong>(values = {}) </a>
     
 
     
@@ -340,23 +402,23 @@ TODO implements methods.</div></span>
 </div>
   
 </div>
-
-
-  <div id="instance_method_details" class="method_details_list">
-    <h2>Instance Method Details</h2>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice this">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
     
-    
-      <div class="method_details first">
-  <p class="signature first" id="destroy-instance_method">
+  </p>
   
-    - (<tt>Object</tt>) <strong>destroy</strong> 
+    <div class="method_details first">
+  <p class="signature first" id="method_missing-instance_method">
+  
+    - (<tt>Object</tt>) <strong>method_missing</strong>(name, *args, &amp;block)  <span class="extras">(private)</span>
   
 
   
 </p><div class="docstring">
   <div class="discussion">
-    Delete from database.
-TODO implements methods.
+    Access attributes as method.
 
   </div>
 </div>
@@ -369,15 +431,146 @@ TODO implements methods.
       <pre class="lines">
 
 
-45
-46
-47</pre>
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 183</span>
+
+<span class='def def kw'>def</span> <span class='method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='case case kw'>case</span>
+  <span class='when when kw'>when</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
+  <span class='when when kw'>when</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/=$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+    <span class='attribute identifier id'>attribute</span> <span class='assign token'>=</span> <span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='sub identifier id'>sub</span><span class='lparen token'>(</span><span class='regexp val'>/=$/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='update_attribute identifier id'>update_attribute</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='comma token'>,</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='first identifier id'>first</span><span class='rparen token'>)</span>
+  <span class='else else kw'>else</span>
+    <span class='super super kw'>super</span>
+  <span class='end end kw'>end</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="count-instance_method">
+  
+    - (<tt>Object</tt>) <strong>count</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 74</span>
+
+<span class='def def kw'>def</span> <span class='count identifier id'>count</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send_request identifier id'>send_request</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='result_set identifier id'>result_set</span><span class='dot token'>.</span><span class='count identifier id'>count</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="destroy-instance_method">
+  
+    - (<tt>Object</tt>) <strong>destroy</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    Delete from database.
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64
+65
+66</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 61</span>
 
 <span class='def def kw'>def</span> <span class='destroy identifier id'>destroy</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send_request identifier id'>send_request</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='record identifier id'>record</span><span class='bitor op'>|</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='connection identifier id'>connection</span><span class='dot token'>.</span><span class='delete identifier id'>delete</span><span class='lparen token'>(</span><span class='record identifier id'>record</span><span class='dot token'>.</span><span class='record_id identifier id'>record_id</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="each-instance_method">
   
+    - (<tt>Object</tt>) <strong>each</strong>(&amp;block) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 68</span>
+
+<span class='def def kw'>def</span> <span class='each identifier id'>each</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send_request identifier id'>send_request</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='record identifier id'>record</span><span class='bitor op'>|</span>
+    <span class='yield yield kw'>yield</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='record identifier id'>record</span><span class='dot token'>.</span><span class='attribtues identifier id'>attribtues</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -388,14 +581,13 @@ TODO implements methods.
       <div class="method_details ">
   <p class="signature " id="save-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>save</strong> 
+    - (<tt>TrueClass</tt>, <tt>FalseClass</tt>) <strong>save</strong> 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     Save attributes to server.
-TODO implements methods.
 
   </div>
 </div>
@@ -407,7 +599,7 @@ TODO implements methods.
     <li>
       
       
-        <span class='type'>(<tt>Boolean</tt>)</span>
+        <span class='type'>(<tt>TrueClass</tt>, <tt>FalseClass</tt>)</span>
       
       
       
@@ -424,15 +616,17 @@ TODO implements methods.
       <pre class="lines">
 
 
-32
-33
-34</pre>
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 46</span>
 
 <span class='def def kw'>def</span> <span class='save identifier id'>save</span>
-  
+  <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='false false kw'>false</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='changed? fid id'>changed?</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='save! fid id'>save!</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -443,14 +637,13 @@ TODO implements methods.
       <div class="method_details ">
   <p class="signature " id="save!-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>save!</strong> 
+    - (<tt>TrueClass</tt>, <tt>FalseClass</tt>) <strong>save!</strong> 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     Force save attributes to server
-TODO implements methods.
 
   </div>
 </div>
@@ -462,7 +655,7 @@ TODO implements methods.
     <li>
       
       
-        <span class='type'>(<tt>Boolean</tt>)</span>
+        <span class='type'>(<tt>TrueClass</tt>, <tt>FalseClass</tt>)</span>
       
       
       
@@ -479,15 +672,100 @@ TODO implements methods.
       <pre class="lines">
 
 
-39
-40
-41</pre>
+53
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 53</span>
 
 <span class='def def kw'>def</span> <span class='save! fid id'>save!</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send_request identifier id'>send_request</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='record identifier id'>record</span><span class='bitor op'>|</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='connection identifier id'>connection</span><span class='dot token'>.</span><span class='edit identifier id'>edit</span><span class='lparen token'>(</span><span class='record identifier id'>record</span><span class='dot token'>.</span><span class='record_id identifier id'>record_id</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attribtues identifier id'>attribtues</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='true true kw'>true</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="update_attribute-instance_method">
   
+    - (<tt>TrueClass</tt>) <strong>update_attribute</strong>(attribute, value) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    Update attribute.
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>attribute</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>attribute name.</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>TrueClass</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 35</span>
+
+<span class='def def kw'>def</span> <span class='update_attribute identifier id'>update_attribute</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='comma token'>,</span> <span class='value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Unknown attribute `#{attribute}'.&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
+  
+  <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='false false kw'>false</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='value identifier id'>value</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='change_attributes identifier id'>change_attributes</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
+  <span class='true true kw'>true</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -498,14 +776,13 @@ TODO implements methods.
       <div class="method_details ">
   <p class="signature " id="update_attributes-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>update_attributes</strong>(values = {}) 
+    - (<tt>TrueClass</tt>, <tt>FalseClass</tt>) <strong>update_attributes</strong>(values = {}) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
     Update attributes.
-TODO implements methods.
 
   </div>
 </div>
@@ -537,7 +814,7 @@ TODO implements methods.
     <li>
       
       
-        <span class='type'>(<tt>Boolean</tt>)</span>
+        <span class='type'>(<tt>TrueClass</tt>, <tt>FalseClass</tt>)</span>
       
       
       
@@ -554,15 +831,23 @@ TODO implements methods.
       <pre class="lines">
 
 
+24
 25
 26
-27</pre>
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 24</span>
 
 <span class='def def kw'>def</span> <span class='update_attributes identifier id'>update_attributes</span><span class='lparen token'>(</span><span class='values identifier id'>values</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='true true kw'>true</span>
+  <span class='result identifier id'>result</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  <span class='values identifier id'>values</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='k identifier id'>k</span><span class='comma token'>,</span> <span class='v identifier id'>v</span><span class='bitor op'>|</span>
+    <span class='result identifier id'>result</span> <span class='assign token'>=</span> <span class='result identifier id'>result</span><span class='orop op'>||</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='update_attribute identifier id'>update_attribute</span><span class='lparen token'>(</span><span class='k identifier id'>k</span><span class='comma token'>,</span> <span class='v identifier id'>v</span><span class='rparen token'>)</span>
+  <span class='end end kw'>end</span>
+  <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='result identifier id'>result</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -575,7 +860,7 @@ TODO implements methods.
 </div>
     
     <div id="footer">
-  Generated on Fri Nov  4 10:13:21 2011 by 
+  Generated on Sat Nov  5 18:18:01 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>

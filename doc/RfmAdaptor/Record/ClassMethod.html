@@ -107,7 +107,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='colon2 op'>::</span><span class='Request constant id'>Request</span><span class='colon2 op'>::</span><span class='Script constant id'>Script</span>
+        <dd><pre class="code"><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='colon2 op'>::</span><span class='RequestBuilder constant id'>RequestBuilder</span><span class='colon2 op'>::</span><span class='Script constant id'>Script</span>
 </pre></dd>
       
         <dt id="FIELD_REQUEST_BUILDER-constant" class="">FIELD_REQUEST_BUILDER =
@@ -122,7 +122,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='colon2 op'>::</span><span class='Request constant id'>Request</span><span class='colon2 op'>::</span><span class='Field constant id'>Field</span>
+        <dd><pre class="code"><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='colon2 op'>::</span><span class='RequestBuilder constant id'>RequestBuilder</span><span class='colon2 op'>::</span><span class='Field constant id'>Field</span>
 </pre></dd>
       
     </dl>
@@ -172,7 +172,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#all-instance_method" title="#all (instance method)">- (RfmAdaptor::ResultSet) <strong>all</strong> </a>
+      <a href="#all-instance_method" title="#all (instance method)">- (RfmAdaptor::RequestBuilder) <strong>all</strong>(conditions) </a>
     
 
     
@@ -256,7 +256,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#where-instance_method" title="#where (instance method)">- (RfmAdaptor::Record::Base) <strong>where</strong>(value = {}) </a>
+      <a href="#where-instance_method" title="#where (instance method)">- (RfmAdaptor::Record::Base) <strong>where</strong>(conditions) </a>
     
 
     
@@ -345,7 +345,7 @@
       <div class="method_details first">
   <p class="signature first" id="all-instance_method">
   
-    - (<tt>RfmAdaptor::ResultSet</tt>) <strong>all</strong> 
+    - (<tt><span class='object_link'><a href="../RequestBuilder.html" title="RfmAdaptor::RequestBuilder (module)">RfmAdaptor::RequestBuilder</a></span></tt>) <strong>all</strong>(conditions) 
   
 
   
@@ -363,7 +363,7 @@
     <li>
       
       
-        <span class='type'>(<tt>RfmAdaptor::ResultSet</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../RequestBuilder.html" title="RfmAdaptor::RequestBuilder (module)">RfmAdaptor::RequestBuilder</a></span></tt>)</span>
       
       
       
@@ -377,17 +377,15 @@
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 44</span>
 
-<span class='def def kw'>def</span> <span class='all identifier id'>all</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='normalize_conditions identifier id'>normalize_conditions</span><span class='lparen token'>(</span><span class='symbol val'>:all</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='setup_request identifier id'>setup_request</span>
+<span class='def def kw'>def</span> <span class='all identifier id'>all</span><span class='lparen token'>(</span><span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='all identifier id'>all</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -450,15 +448,13 @@
 
 30
 31
-32
-33</pre>
+32</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 30</span>
 
 <span class='def def kw'>def</span> <span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
-  <span class='conditions identifier id'>conditions</span> <span class='assign token'>=</span>  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='normalize_conditions identifier id'>normalize_conditions</span><span class='lparen token'>(</span><span class='symbol val'>:field</span><span class='comma token'>,</span> <span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='setup_request identifier id'>setup_request</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='comma token'>,</span> <span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -535,17 +531,15 @@
       <pre class="lines">
 
 
+38
 39
-40
-41
-42</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 38</span>
 
 <span class='def def kw'>def</span> <span class='script identifier id'>script</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='param identifier id'>param</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='normalize_conditions identifier id'>normalize_conditions</span><span class='lparen token'>(</span><span class='symbol val'>:script</span><span class='comma token'>,</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='param identifier id'>param</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='setup_request identifier id'>setup_request</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='script_request identifier id'>script_request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='comma token'>,</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='param identifier id'>param</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -609,7 +603,7 @@
       <div class="method_details ">
   <p class="signature " id="where-instance_method">
   
-    - (<tt><span class='object_link'><a href="Base.html" title="RfmAdaptor::Record::Base (class)">RfmAdaptor::Record::Base</a></span></tt>) <strong>where</strong>(value = {}) 
+    - (<tt><span class='object_link'><a href="Base.html" title="RfmAdaptor::Record::Base (class)">RfmAdaptor::Record::Base</a></span></tt>) <strong>where</strong>(conditions) 
   
 
   
@@ -630,8 +624,6 @@
       
         <span class='type'>(<tt>Hash</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
         &mdash;
@@ -661,19 +653,15 @@
       <pre class="lines">
 
 
-54
-55
-56
-57
-58</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 51</span>
 
-<span class='def def kw'>def</span> <span class='where identifier id'>where</span><span class='lparen token'>(</span><span class='value identifier id'>value</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='raise identifier id'>raise</span> <span class='string val'>&quot;Value must be a Hash.&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='Hash constant id'>Hash</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='append_conditions identifier id'>append_conditions</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='blank? fid id'>blank?</span>
-  <span class='self self kw'>self</span>
+<span class='def def kw'>def</span> <span class='where identifier id'>where</span><span class='lparen token'>(</span><span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='comma token'>,</span> <span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -686,7 +674,7 @@
 </div>
     
     <div id="footer">
-  Generated on Fri Nov  4 10:13:21 2011 by 
+  Generated on Sat Nov  5 18:18:01 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>

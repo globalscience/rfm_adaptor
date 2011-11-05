@@ -97,7 +97,7 @@ Act like database adaptor for FileMaker server.
 <p class="children">
    
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="RfmAdaptor/Constant.html" title="RfmAdaptor::Constant (module)">Constant</a></span>, <span class='object_link'><a href="RfmAdaptor/Database.html" title="RfmAdaptor::Database (module)">Database</a></span>, <span class='object_link'><a href="RfmAdaptor/Record.html" title="RfmAdaptor::Record (module)">Record</a></span>, <span class='object_link'><a href="RfmAdaptor/Request.html" title="RfmAdaptor::Request (module)">Request</a></span>, <span class='object_link'><a href="RfmAdaptor/Util.html" title="RfmAdaptor::Util (module)">Util</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="RfmAdaptor/Constant.html" title="RfmAdaptor::Constant (module)">Constant</a></span>, <span class='object_link'><a href="RfmAdaptor/Database.html" title="RfmAdaptor::Database (module)">Database</a></span>, <span class='object_link'><a href="RfmAdaptor/Record.html" title="RfmAdaptor::Record (module)">Record</a></span>, <span class='object_link'><a href="RfmAdaptor/RequestBuilder.html" title="RfmAdaptor::RequestBuilder (module)">RequestBuilder</a></span>, <span class='object_link'><a href="RfmAdaptor/Util.html" title="RfmAdaptor::Util (module)">Util</a></span>
     
    
     
@@ -115,7 +115,7 @@ Act like database adaptor for FileMaker server.
   
   
   <h3 class="inherited">Constants included from <span class='object_link'><a href="RfmAdaptor/Constant.html" title="RfmAdaptor::Constant (module)">Constant</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="RfmAdaptor/Constant.html#CONFIG_DIR-constant" title="RfmAdaptor::Constant::CONFIG_DIR (constant)">CONFIG_DIR</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#CONFIG_EXTENSION-constant" title="RfmAdaptor::Constant::CONFIG_EXTENSION (constant)">CONFIG_EXTENSION</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#DEFAULT_ENVIRONMENT-constant" title="RfmAdaptor::Constant::DEFAULT_ENVIRONMENT (constant)">DEFAULT_ENVIRONMENT</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#SCRIPT_PARAM_REQUEST_KEY-constant" title="RfmAdaptor::Constant::SCRIPT_PARAM_REQUEST_KEY (constant)">SCRIPT_PARAM_REQUEST_KEY</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#SCRIPT_REQUEST_KEY-constant" title="RfmAdaptor::Constant::SCRIPT_REQUEST_KEY (constant)">SCRIPT_REQUEST_KEY</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="RfmAdaptor/Constant.html#CONFIG_DIR-constant" title="RfmAdaptor::Constant::CONFIG_DIR (constant)">CONFIG_DIR</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#CONFIG_EXTENSION-constant" title="RfmAdaptor::Constant::CONFIG_EXTENSION (constant)">CONFIG_EXTENSION</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#DEFAULT_ENVIRONMENT-constant" title="RfmAdaptor::Constant::DEFAULT_ENVIRONMENT (constant)">DEFAULT_ENVIRONMENT</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#DEFAULT_ID_FIELD_LABEL-constant" title="RfmAdaptor::Constant::DEFAULT_ID_FIELD_LABEL (constant)">DEFAULT_ID_FIELD_LABEL</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#SCRIPT_PARAM_REQUEST_KEY-constant" title="RfmAdaptor::Constant::SCRIPT_PARAM_REQUEST_KEY (constant)">SCRIPT_PARAM_REQUEST_KEY</a></span>, <span class='object_link'><a href="RfmAdaptor/Constant.html#SCRIPT_REQUEST_KEY-constant" title="RfmAdaptor::Constant::SCRIPT_REQUEST_KEY (constant)">SCRIPT_REQUEST_KEY</a></span></p>
 
 
 
@@ -155,7 +155,7 @@ Act like database adaptor for FileMaker server.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#root-class_method" title="root (class method)">+ (Object) <strong>root</strong> </a>
+      <a href="#lib-class_method" title="lib (class method)">+ (String) <strong>lib</strong> </a>
     
 
     
@@ -168,7 +168,49 @@ Act like database adaptor for FileMaker server.
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>Path to RfmAdaptor library directory.</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lib_root-class_method" title="lib_root (class method)">+ (String) <strong>lib_root</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>Path to RfmAdaptor library root.</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#root-class_method" title="root (class method)">+ (String) <strong>root</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>Path to RfmAdaptor plugin's root.</div></span>
   
 </li>
 
@@ -222,16 +264,16 @@ Act like database adaptor for FileMaker server.
       <pre class="lines">
 
 
-22
-23
 24
 25
 26
 27
-28</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/constant.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/constant.rb', line 24</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='default_environment identifier id'>default_environment</span>
   <span class='if if kw'>if</span> <span class='defined? defined kw'>defined?</span><span class='lparen token'>(</span><span class='Rails constant id'>Rails</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='Rails constant id'>Rails</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='symbol val'>:env</span><span class='rparen token'>)</span>
@@ -247,24 +289,148 @@ Act like database adaptor for FileMaker server.
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="root-class_method">
+  <p class="signature " id="lib-class_method">
   
-    + (<tt>Object</tt>) <strong>root</strong> 
+    + (<tt>String</tt>) <strong>lib</strong> 
   
 
   
-</p><table class="source_code">
+</p><div class="docstring">
+  <div class="discussion">
+    Path to RfmAdaptor library directory
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-7
-8
-9</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor.rb', line 15</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='lib identifier id'>lib</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='root identifier id'>root</span><span class='comma token'>,</span> <span class='string val'>&quot;lib&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="lib_root-class_method">
+  
+    + (<tt>String</tt>) <strong>lib_root</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    Path to RfmAdaptor library root.
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor.rb', line 21</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='lib_root identifier id'>lib_root</span>
+  <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='lib identifier id'>lib</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='underscore identifier id'>underscore</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="root-class_method">
+  
+    + (<tt>String</tt>) <strong>root</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    Path to RfmAdaptor plugin's root.
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor.rb', line 9</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='root identifier id'>root</span>
   <span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='__FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='string val'>&quot;..&quot;</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
@@ -280,7 +446,7 @@ Act like database adaptor for FileMaker server.
 </div>
     
     <div id="footer">
-  Generated on Fri Nov  4 10:13:22 2011 by 
+  Generated on Sat Nov  5 18:18:01 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>
