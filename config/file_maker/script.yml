@@ -5,6 +5,9 @@ people:
     "-script":        "sort_people_by_age"
     "-script.param":  "asc"
   
+  search_by_name:
+    param: "%{name}"
+  
   search_by_age:
     name: "search_people_by_age"
     param:  "%{age}"
