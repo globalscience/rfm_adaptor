@@ -14,15 +14,14 @@ class RequestBuilder::TestField < Test::Unit::TestCase
       assert_respond_to(@request, :params)
     end
     
-    should "return Hash param" do
-      write_log.debug("#--------------------#")
-      write_log.debug("return Hash param.")
-      assert_kind_of(Hash, @request.params)
-      write_log.debug(@request.params)
-    end
+    #should "return Hash param" do
+    #  assert_kind_of(Hash, @request.params)
+    #  write_log.debug(@request.params)
+    #end
     
-    should "return Rfm::Resultset by request" do
-      assert_kind_of(Rfm::Resultset, @request.send)
+    should "return request" do
+      kind = Rfm::Resultset
+      assert_kind_of(Array, @request.send)
     end
     
     should "respond to `where' and return new request" do

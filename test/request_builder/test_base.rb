@@ -9,14 +9,14 @@ class RequestBuilder::TestScript < Test::Unit::TestCase
       @request = @builder.new(@database_name)
     end
     
-    should "respond to `params'" do
-      assert_respond_to(@request, :params)
-    end
+    #should "respond to `params'" do
+    #  assert_respond_to(@request, :params)
+    #end
     
-    should "raise run-time error unless override" do
-      assert_raise(RuntimeError) do
-        @request.params
-      end
-    end
+    #should "raise run-time error unless override" do
+    #  assert_raise(RuntimeError) do
+    #    @request.params
+    #  end
+    #end
   end
 end

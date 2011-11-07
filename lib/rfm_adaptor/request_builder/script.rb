@@ -18,15 +18,6 @@ class RfmAdaptor::RequestBuilder::Script < RfmAdaptor::RequestBuilder::Base
     self.normalize_params(name, param)
   end
   
-  # Get request parameters to Rfm::Layout.
-  # @return [Hash] script-request for Rfm::Layout.
-  def params
-    result = {}
-    result[self.script_request_key] = self.name
-    result[self.script_param_request_key] = self.param unless self.param.blank?
-    return(result)
-  end
-  
   #--------------------#
   protected
   #--------------------#
@@ -39,6 +30,15 @@ class RfmAdaptor::RequestBuilder::Script < RfmAdaptor::RequestBuilder::Base
   
   # Script configuration
   attr_accessor  :config
+  
+  # Get request parameters to Rfm::Layout.
+  # @return [Hash] script-request for Rfm::Layout.
+  def params
+    result = {}
+    result[self.script_request_key] = self.name
+    result[self.script_param_request_key] = self.param unless self.param.blank?
+    return(result)
+  end
   
   # get script-request's query key.
   # @return [String]

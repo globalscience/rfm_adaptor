@@ -16,12 +16,6 @@ class RfmAdaptor::RequestBuilder::Field < RfmAdaptor::RequestBuilder::Base
     self.append_conditions(conditions)
   end
   
-  # Get request parameters to Rfm::Layout.
-  # @return [Hash]
-  def params
-    self.build_request
-  end
-  
   # Append request conditions
   # @param conditions [Hash, Numeric, String]
   # @return [RfmAdaptor::Request::Field]
@@ -40,6 +34,12 @@ class RfmAdaptor::RequestBuilder::Field < RfmAdaptor::RequestBuilder::Base
   # Send request to server.
   def command
     self.conditions.blank? ? :all : super
+  end
+  
+  # Get request parameters to Rfm::Layout.
+  # @return [Hash]
+  def params
+    self.build_request
   end
   
   # Build field-request for Rfm::Layout.
@@ -101,7 +101,11 @@ class RfmAdaptor::RequestBuilder::Field < RfmAdaptor::RequestBuilder::Base
   # extend instance, access attributes.
   def method_missing(name, *args, &block)
     unless self.config.include?(name.to_s)
-      super(name, *args, &block)
+      begin
+        self.send.__send__(name, *args, &block)
+      rescue
+        super(name, *args, &block)
+      end
     else
       self.config[name.to_s]
     end

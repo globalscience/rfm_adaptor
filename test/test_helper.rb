@@ -34,6 +34,10 @@ end
 module RfmAdaptor
   # test helper
   module TestHelper
+    def write_log_title(level = :debug)
+      write_log.__send__(level, "#--------------------#")
+      write_log.__send__(level, self.name)
+    end
     
     def require_test_helper(relative_path)
       base = File.expand_path(File.join(File.dirname(__FILE__), "helpers"))
@@ -85,4 +89,3 @@ module RfmAdaptor
 end
 
 include RfmAdaptor::TestHelper
-

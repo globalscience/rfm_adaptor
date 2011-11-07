@@ -17,6 +17,12 @@ module RfmAdaptor::RequestBuilder
   end
 end
 
+module RfmAdaptor::Record
+  class Base
+    
+  end
+end
+
 require "rfm_adaptor/request_builder/base"
 require "rfm_adaptor/request_builder/script"
 require "rfm_adaptor/request_builder/field"

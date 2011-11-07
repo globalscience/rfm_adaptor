@@ -28,7 +28,7 @@ module RfmAdaptor::Record::ClassMethod
   #   Numeric: search as ID.
   # @return [RfmAdaptor::ResultSet]
   def find(conditions)
-    self.request.new(self.database_name, conditions)
+    self.request.new(self.seed, conditions)
   end
   
   # Send script request to server.
@@ -36,20 +36,20 @@ module RfmAdaptor::Record::ClassMethod
   # @param param [Hash, String, nil] script parameter.
   # @return [RfmAdaptor::ResultSet]
   def script(name, param = nil)
-    self.script_request.new(self.database_name, name, param)
+    self.script_request.new(self.seed, name, param)
   end
   
   # Send search all records request to server.
   # @return [RfmAdaptor::RequestBuilder]
   def all(conditions)
-    self.request.all(self.database_name)
+    self.request.all(self.seed)
   end
   
   # Append conditions
   # @param value [Hash] field conditions.
   # @return [RfmAdaptor::Record::Base]
   def where(conditions)
-    self.request.new(self.database_name, conditions)
+    self.request.new(self.seed, conditions)
   end
   
   #--------------------#
@@ -64,6 +64,13 @@ module RfmAdaptor::Record::ClassMethod
     self.name.tableize
   end
   
+  # Get request seed.
+  # @return [RfmAdaptor::Record::Base]
+  def seed
+    self.database_name
+    self
+  end
+  
   def script_request
     SCRIPT_REQUEST_BUILDER
   end
@@ -71,4 +78,5 @@ module RfmAdaptor::Record::ClassMethod
   def request
     FIELD_REQUEST_BUILDER
   end
+  
 end

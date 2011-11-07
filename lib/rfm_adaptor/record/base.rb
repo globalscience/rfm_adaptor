@@ -5,17 +5,14 @@ require File.expand_path(File.join(File.dirname(__FILE__), "class_method"))
 # Handle request to server as adaptor.
 class RfmAdaptor::Record::Base
   
-  # Request builder.
-  REQUEST_BUILDER = RfmAdaptor::RequestBuilder
-  
   extend RfmAdaptor::Record::ClassMethod
   
   # Create instance
   # @param params [Hash] attributes or request-params.
   # @return [RfmAdaptor::Record]
-  def initialize(params = {})
+  def initialize(params_or_record = {})
     super()
-    self.setup(params)
+    self.setup(params_or_record)
   end
   
   # Update attributes.
@@ -33,11 +30,11 @@ class RfmAdaptor::Record::Base
   # @param attribute [String] attribute name.
   # @return [TrueClass]
   def update_attribute(attribute, value)
-    raise "Unknown attribute `#{attribute}'." unless self.attributes.include?(attribute.to_s)
+    raise "Unknown attribute `#{attribute}'." unless self.has_field?(attribute.to_s)
     
     return(false) if self.attributes[attribute.to_s] == value
     self.attributes[attribute.to_s] = value
-    self.change_attributes = true
+    self.changed = true
     true
   end
 
@@ -51,31 +48,33 @@ class RfmAdaptor::Record::Base
   # Force save attributes to server
   # @return [TrueClass, FalseClass] result of saving attributes.
   def save!
-    self.send_request do |record|
-      self.connection.edit(record.record_id, self.attribtues)
-    end
+    self.request.edit(self.request.record_id, self.attribtues)
+    self.changed = false
     true
   end
   
   # Delete from database.
+  # @return [TrueClass, FalseClass] result of saving attributes.
   def destroy
-    self.send_request do |record|
-      self.connection.delete(record.record_id)
-    end
+    self.request.delete(self.request.record_id)
+    self.changed = false
     true
   end
   
-  def each(&block)
-    self.send_request do |record|
-      yield(self.class.new(record.attribtues))
-    end
+  # Get attribute.
+  # @param attribute [String, Symbol]
+  # @return [Object]
+  def [](attribute)
+    self.attributes[attribute.to_s]
   end
   
-  def count
-    self.send_request
-    self.result_set.count
+  # Set attribute.
+  # @param attribute [String, Symbol]
+  # @param value [Object]
+  def []=(attribute, value)
+    raise "#{attribute} not defiend." unless self.has_field?(attribute)
+    self.update_attribute(attribute, value)
   end
-  
   
   #--------------------#
   protected
@@ -84,46 +83,69 @@ class RfmAdaptor::Record::Base
   # Attributes.
   attr_accessor :attributes
   
-  # Databse
-  attr_accessor :database
+  # Condiguration
+  attr_accessor :config
   
-  # Connection to server.
-  # @return [Rfm::Layout]
-  def connection
-    self.database.connection
-  end
+  # Record as Rfm::Record
+  attr_accessor :record
   
   # Setup instance.
-  def setup(params)
-    self.database = RfmAdaptor::Database::Base.new(self.class.database_name)
-    self.request_builder = self.class::REQUEST_BUILDER
-    self.setup_attributes(params)
+  def setup(params_or_record)
+    self.setup_config
+    self.setup_attributes(params_or_record)
+  end
+  
+  # Setup configuration.
+  def setup_config
+    con = RfmAdaptor::Configuration.new(:field)
+    self.config = con.__send__(self.class.database_name)
   end
   
   # Setup attributes.
-  # @param params [Hash] attributes.
-  def setup_attributes(params)
-    write_log.debug "setup_attributes_with_request: #{params.inspect}"
+  # @param params [Hash, Rfm::Record, ] attributes.
+  def setup_attributes(params_or_record)
     self.attributes = {}
-    
-    self.request_params = {}
-    param_keys = params.collect {|k, v| k.to_s}||[]
-    self.script_request = param_keys.include?(RfmAdaptor::SCRIPT_REQUEST_KEY)
-    
+    self.__send__("setup_attributes_with_#{params_or_record.class.name.underscore.gsub(/\//, '_')}", params_or_record)
+  end
+  
+  # Setup attributes with Hash.
+  # @param params [Hash]
+  def setup_attributes_with_hash(params)
     params.each do |k, v|
-      key = k.to_s
-      self.request_params[key] = v
-      self.attributes[key] = v unless key.match(/^-/)
-=begin
-      case key
-      when /^-/
-        self.request_params[key] = v if self.script_request?
-      else
-        self.attributes[key] = v unless self.script_request?
-        self.request_params[key] = v
-      end
-=end
+      self.attributes[k.to_s] = v
     end
+    self.changed = true
+  end
+  
+  # Setup attributes with Rfm::Record
+  def setup_attributes_with_rfm_record(record)
+    self.record = record
+    record.each do |k, v|
+      self.attributes[k.to_s] = v
+    end
+  end
+  
+  # Has attribute?
+  def has_attribute?(attribute)
+    self.attributes.include?(attribute.to_s)
+  end
+  
+  # Has field?
+  def has_field?(attribute)
+    self.has_attribute?(attribute.to_s)||self.respond_to_field?(attribute)
+  end
+  
+  # Respond to field?
+  # @return [TrueClass, FalseClass]
+  def respond_to_field?(field_name)
+    self.config.include?(field_name.to_s)
+  end
+  
+  # Field value written in configuration file.
+  # @param key [String, Symbol]
+  # @return [Object]
+  def field_value(key)
+    self.attributes[self.config[key.to_s]]
   end
   
   # Attributes change status
@@ -135,46 +157,6 @@ class RfmAdaptor::Record::Base
     self.changed == true
   end
   
-  # Request parametors
-  attr_accessor :request_params
-  
-  # Request builder
-  attr_accessor :request_builder
-  
-  # Script request?
-  attr_accessor :script_request
-  
-  # Script request
-  # @return [TrueClass, FalseClass]
-  def script_request?
-    @script_request == true
-  end
-  
-  # Rfm::ResultSet
-  attr_accessor :result_set
-  
-  # Send request to server.
-  def send_request(&block)
-    log_me
-    
-    begin
-    self.result_set = self.connection.find(self.request_params)
-    rescue => e
-      write_log.debug self.connection.inspect
-      
-      write_log.debug e.message
-    end
-    
-    self.changed = false
-    
-    if block_given?
-      self.result_set.each do |record|
-        yield(record)
-      end unless self.result_set.blank?
-    end
-    self
-  end
-  
   #--------------------#
   private
   #--------------------#
@@ -182,9 +164,11 @@ class RfmAdaptor::Record::Base
   # Access attributes as method.
   def method_missing(name, *args, &block)
     case
-    when self.attributes.include?(name.to_s)
+    when self.respond_to_field?(name)
+      self.field_value(name)
+    when self.has_field?(name)
       self.attributes[name.to_s]
-    when self.attributes.include?(name.to_s.sub(/=$/, ''))
+    when self.has_field?(name.to_s.sub(/=$/, ''))
       attribute = name.to_s.sub(/=$/, '')
       self.update_attribute(attribute, args.first)
     else
