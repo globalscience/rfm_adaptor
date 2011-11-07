@@ -385,7 +385,7 @@
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 44</span>
 
 <span class='def def kw'>def</span> <span class='all identifier id'>all</span><span class='lparen token'>(</span><span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='all identifier id'>all</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='all identifier id'>all</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='seed identifier id'>seed</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -454,7 +454,7 @@
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 30</span>
 
 <span class='def def kw'>def</span> <span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='comma token'>,</span> <span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='seed identifier id'>seed</span><span class='comma token'>,</span> <span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -539,7 +539,7 @@
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 38</span>
 
 <span class='def def kw'>def</span> <span class='script identifier id'>script</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='param identifier id'>param</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='script_request identifier id'>script_request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='comma token'>,</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='param identifier id'>param</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='script_request identifier id'>script_request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='seed identifier id'>seed</span><span class='comma token'>,</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='param identifier id'>param</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -661,7 +661,7 @@
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/class_method.rb', line 51</span>
 
 <span class='def def kw'>def</span> <span class='where identifier id'>where</span><span class='lparen token'>(</span><span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='comma token'>,</span> <span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='seed identifier id'>seed</span><span class='comma token'>,</span> <span class='conditions identifier id'>conditions</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -674,7 +674,7 @@
 </div>
     
     <div id="footer">
-  Generated on Sat Nov  5 18:18:01 2011 by 
+  Generated on Mon Nov  7 17:38:24 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>
