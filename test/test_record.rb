@@ -109,9 +109,29 @@ class TestRecord < Test::Unit::TestCase
         @instance_methods = @helper.test_instance_methods
       end
       
+      # Field value with label written in configuraion file.
+      # 設定ファイル中のラベルでのアクセスの検証。
       should "respond attributes with field label" do
         assert_equal(@name, @record.name)
         assert_equal(@customer, @record.__send__(@customer_attribute))
+      end
+      
+      # Update attribute with various methods.
+      # フィールドの値の更新をいろいろなメソッドを使って検証。
+      should "update attribute" do
+        assert_nothing_raised do
+          @record.update_attribute(:name, "George")
+          write_log.debug("Change name '#{@name}' to '#{@record.name}'.")
+          
+          @record[:name] = "John"
+          write_log.debug("Change name to '#{@record.name}'.")
+          
+          @record.name = "Jane"
+          write_log.debug("Change name to '#{@record.name}'.")
+          
+          @record.update_attributes({:name => @name})
+          write_log.debug("Change name to '#{@record.name}'.")
+        end
       end
     end
     
