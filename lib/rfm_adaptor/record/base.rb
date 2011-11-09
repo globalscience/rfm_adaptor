@@ -56,6 +56,7 @@ class RfmAdaptor::Record::Base
     write_log.debug("record_id: #{self.record_id}")
     write_log.debug("mod_id: #{self.mod_id}")
     self.request.edit(self.record_id, self.updated_attributes)
+    self.updated_attributes = {}
     self.changed = false
     true
   end
@@ -64,6 +65,7 @@ class RfmAdaptor::Record::Base
   # @return [TrueClass, FalseClass] result of saving attributes.
   def destroy
     self.request.delete(self.record_id)
+    self.updated_attributes = {}
     self.changed = false
     true
   end
