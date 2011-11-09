@@ -24,6 +24,34 @@ class RfmAdaptor::RequestBuilder::Field < RfmAdaptor::RequestBuilder::Base
   end
   alias_method :find, :where
   
+  # Send create request
+  def create
+    self.send_request do
+      new_params = self.filter_id_param(self.params)
+      self.responce = self.connection.__send__(:create, new_params)
+      self.setup_records
+      self.records.first
+    end
+  end
+  
+  # Send edit request
+  def edit(record_id, attributes)
+    self.send_request do
+      new_params = self.filter_id_param(attributes)
+      write_log.debug([record_id, new_params])
+      self.responce = self.connection.__send__(:edit, record_id, new_params)
+      self.setup_records
+      self.records.first
+    end
+  end
+  
+  # Send delete request
+  def delete(record_id)
+    
+    write_log.debug self.responce = self.connection.__send__(:delete, record_id)
+    true
+  end
+  
   #--------------------#
   protected
   #--------------------#
@@ -98,16 +126,17 @@ class RfmAdaptor::RequestBuilder::Field < RfmAdaptor::RequestBuilder::Base
   private
   #--------------------#
   
-  # extend instance, access attributes.
+  # Extend instance, access attributes.
   def method_missing(name, *args, &block)
-    unless self.config.include?(name.to_s)
+    case
+    when self.config.include?(name.to_s)
+      self.config[name.to_s]
+    else
       begin
         self.send.__send__(name, *args, &block)
       rescue
         super(name, *args, &block)
       end
-    else
-      self.config[name.to_s]
     end
   end
 end

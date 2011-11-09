@@ -14,7 +14,11 @@ module RfmAdaptor::Util
     log_path = File.join(log_dir, "rfm_adaptor.log")
     FileUtils.touch(log_path)
     logger = Logger.new(log_path)
-    logger.formatter = Logger::Formatter.new
+    #logger.formatter = Logger::Formatter.new
+    logger.formatter = proc { |severity, datetime, progname, msg|
+      "[#{datetime.strftime('%Y-%m-%dT%H:%M:%S.%s')}]#{severity}: #{msg}\n"
+    }
+    
     return(logger)
   end
   

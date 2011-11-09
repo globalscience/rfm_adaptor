@@ -5,6 +5,9 @@ require File.expand_path(File.join(File.dirname(__FILE__), "class_method"))
 # Handle request to server as adaptor.
 class RfmAdaptor::Record::Base
   
+  # Request builder
+  REQUEST_BUILDER = RfmAdaptor::RequestBuilder::Field
+  
   extend RfmAdaptor::Record::ClassMethod
   
   # Create instance
@@ -34,6 +37,8 @@ class RfmAdaptor::Record::Base
     
     return(false) if self.attributes[attribute.to_s] == value
     self.attributes[attribute.to_s] = value
+    self.updated_attributes[attribute.to_s] = value
+    
     self.changed = true
     true
   end
@@ -48,7 +53,9 @@ class RfmAdaptor::Record::Base
   # Force save attributes to server
   # @return [TrueClass, FalseClass] result of saving attributes.
   def save!
-    self.request.edit(self.request.record_id, self.attribtues)
+    write_log.debug("record_id: #{self.record_id}")
+    write_log.debug("mod_id: #{self.mod_id}")
+    self.request.edit(self.record_id, self.updated_attributes)
     self.changed = false
     true
   end
@@ -56,7 +63,7 @@ class RfmAdaptor::Record::Base
   # Delete from database.
   # @return [TrueClass, FalseClass] result of saving attributes.
   def destroy
-    self.request.delete(self.request.record_id)
+    self.request.delete(self.record_id)
     self.changed = false
     true
   end
@@ -76,6 +83,12 @@ class RfmAdaptor::Record::Base
     self.update_attribute(attribute, value)
   end
   
+  # Get Rfm::Record
+  # @return [Rfm::Record]
+  def record
+    @record ||= self.setup_record
+  end
+
   #--------------------#
   protected
   #--------------------#
@@ -83,11 +96,41 @@ class RfmAdaptor::Record::Base
   # Attributes.
   attr_accessor :attributes
   
+  # Updated_attribuets.
+  attr_accessor :updated_attributes
+  
+  # Request parameters.
+  attr_accessor :request_params
+  
   # Condiguration
   attr_accessor :config
   
   # Record as Rfm::Record
-  attr_accessor :record
+  attr_writer :record
+  
+  # Get Rfm::Record#record_id.
+  # @return [Object]
+  def record_id
+    self.record.record_id
+  end
+  
+  # Get mod_id.
+  # @return [Object]
+  def mod_id
+    self.record.mod_id
+  end
+  
+  # Setup Rfm::Record
+  # @return [Rfm::Record]
+  def setup_record
+    self.request.create
+  end
+  
+  # Get request.
+  # @return [RfmAdaptor::RequestBuilder::Field]
+  def request
+    REQUEST_BUILDER.new(self.class.database_name, self.request_params)
+  end
   
   # Setup instance.
   def setup(params_or_record)
@@ -105,7 +148,9 @@ class RfmAdaptor::Record::Base
   # @param params [Hash, Rfm::Record, ] attributes.
   def setup_attributes(params_or_record)
     self.attributes = {}
+    self.updated_attributes ||= {}
     self.__send__("setup_attributes_with_#{params_or_record.class.name.underscore.gsub(/\//, '_')}", params_or_record)
+    self.request_params = self.attributes.dup
   end
   
   # Setup attributes with Hash.

@@ -8,6 +8,7 @@ class TestRecord < Test::Unit::TestCase
   # レコードの基底クラスの検証
   context "Record" do
     setup do
+      write_log_title
       @rfm_record_class = Rfm::Record
       @record_class = RfmAdaptor::Record::Base
       @klass = Person
@@ -17,7 +18,6 @@ class TestRecord < Test::Unit::TestCase
       
       @class_methods = @helper.test_class_methods
       @scripts = @helper.test_scripts
-      
     end
     
     #--------------------#
@@ -37,7 +37,6 @@ class TestRecord < Test::Unit::TestCase
       # Return Request::Base (except @klass.new).
       # リクエスト生成クラスを返す（@klass.new メソッド以外）。
       should "return RfmAdaptor::RequestBuilder::Base" do
-        write_log_title
         @class_methods.each do |m, param|
           request = @klass.__send__(m, param)
           write_log.debug(request)
@@ -52,7 +51,6 @@ class TestRecord < Test::Unit::TestCase
       # Return Rfm::Resultset with reuest.
       # リクエストに対して Rfm::Resultset を返す。
       should "return Rfm::Resultset" do
-        write_log_title
         @class_methods.each do |m, param|
           unless m.to_s =~ /new/
             request = @klass.__send__(m, *param)
@@ -72,7 +70,6 @@ class TestRecord < Test::Unit::TestCase
         # Count.
         # レコードのカウント
         should "count" do
-          write_log_title
           assert_kind_of(Numeric, @result.count)
           write_log.debug(" #=> #{@result.count}")
         end
@@ -80,7 +77,6 @@ class TestRecord < Test::Unit::TestCase
         # Each.
         # 
         should "each" do
-          write_log_title
           write_log.debug("#{@klass}.find.each")
           write_log.debug @result
           @result.each do |record|
@@ -89,7 +85,6 @@ class TestRecord < Test::Unit::TestCase
         end
         
         should "first" do
-          write_log_title
           assert_kind_of(@klass, @result.last)
         end
       end
@@ -104,11 +99,12 @@ class TestRecord < Test::Unit::TestCase
         @name = "Joe"
         @customer = "GlobalScience"
         @customer_attribute = :customer_name
-        conditions = {:name => @name, @customer_attribute => @customer}
-        @record = @klass.find(conditions).first
+        @conditions = {:name => @name, @customer_attribute => @customer}
+        @record = @klass.find(@conditions).first
         @instance_methods = @helper.test_instance_methods
+        write_log.debug("setuped.")
       end
-      
+            
       # Field value with label written in configuraion file.
       # 設定ファイル中のラベルでのアクセスの検証。
       should "respond attributes with field label" do
@@ -132,6 +128,31 @@ class TestRecord < Test::Unit::TestCase
           @record.update_attributes({:name => @name})
           write_log.debug("Change name to '#{@record.name}'.")
         end
+      end
+      
+      should "create new record" do
+        assert_nothing_raised do
+          record = @klass.new(:name => "James")
+          assert(record.save)
+          record.destroy
+        end
+      end
+      
+      should "upadte and save" do
+        @record.update_attribute(:name, @name + " Jr.")
+        write_log.debug(@record.record)
+        
+        assert(@record.save)
+        ##assert(@record.update_attribute(:name, @name).save)
+        @record.update_attribute(:name, @name)
+        assert(@record.save)
+      end
+      
+      should "destroy" do
+        record = @klass.new(:name => "Jack")
+        record.save
+        write_log.debug("destroy!")
+        assert(record.destroy)
       end
     end
     

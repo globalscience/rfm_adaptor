@@ -28,18 +28,14 @@ class RfmAdaptor::RequestBuilder::Base
       self.database_name = database_name.to_s
       self.record_class = self.database_name.singularize.classify.constantize
     end
-    #p self.database_name
-    #p self.record_class
-    
   end
   
-  # Send request to server with call back.
+  # Send request to server with call backs.
   # @return [Rfm::Resultset]
   def send
-    self.request_will_send
-    self.send!
-    self.setup_records
-    self.request_sent
+    self.send_request do
+      self.send!
+    end
     return(self.records)
   end
   
@@ -56,6 +52,7 @@ class RfmAdaptor::RequestBuilder::Base
   # Records.
   attr_accessor :records
   
+  # Class of records.
   attr_accessor :record_class
   
   # Get request parameters to Rfm::Layout.
@@ -65,9 +62,27 @@ class RfmAdaptor::RequestBuilder::Base
     raise "Override protected method `params'."
   end
   
+  def filter_id_param(parameters)
+    write_log.debug("filter_id_param")
+    parameters.dup.each do |k, v|
+      write_log.debug("#{k} => #{v}")
+      k.to_s == 'id'
+    end
+  end
+  
   # Command to Rfm::Layout
   def command
     :find
+  end
+  
+  # Send request with block.
+  # @return [Object]
+  def send_request(&block)
+    self.request_will_send
+    result = yield
+    self.setup_records
+    self.request_sent
+    result
   end
   
   # Send request to server.
@@ -76,6 +91,8 @@ class RfmAdaptor::RequestBuilder::Base
     self.responce = self.connection.__send__(self.command, self.params)
   end
   
+  # Convert responce to records.
+  # @return [Array<Object>]
   def setup_records
     self.records = []
     self.responce.each do |r|

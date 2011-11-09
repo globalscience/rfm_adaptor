@@ -52,6 +52,13 @@ module RfmAdaptor::Record::ClassMethod
     self.request.new(self.seed, conditions)
   end
   
+  # Create record and save to server.
+  # @param [Hash, Rfm::Record]
+  # @return [Object]
+  def create(params_or_record)
+    object = self.new(params_or_record).save
+    return(object)
+  end
   #--------------------#
   protected
   #--------------------#
