@@ -108,6 +108,28 @@
   
 
 </div>
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="REQUEST_BUILDER-constant" class="">REQUEST_BUILDER =
+          <div class="docstring">
+  <div class="discussion">
+    Request builder
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='RfmAdaptor constant id'>RfmAdaptor</span><span class='colon2 op'>::</span><span class='RequestBuilder constant id'>RequestBuilder</span><span class='colon2 op'>::</span><span class='Field constant id'>Field</span>
+</pre></dd>
+      
+    </dl>
+  
+
 
   
   
@@ -116,12 +138,41 @@
   <h3 class="inherited">Constants included from <span class='object_link'><a href="ClassMethod.html" title="RfmAdaptor::Record::ClassMethod (module)">ClassMethod</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="ClassMethod.html#FIELD_REQUEST_BUILDER-constant" title="RfmAdaptor::Record::ClassMethod::FIELD_REQUEST_BUILDER (constant)">FIELD_REQUEST_BUILDER</a></span>, <span class='object_link'><a href="ClassMethod.html#SCRIPT_REQUEST_BUILDER-constant" title="RfmAdaptor::Record::ClassMethod::SCRIPT_REQUEST_BUILDER (constant)">SCRIPT_REQUEST_BUILDER</a></span></p>
 
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#record-instance_method" title="#record (instance method)">- (Rfm::Record) <strong>record</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>Get Rfm::Record.</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
+
   
   
   
-  <h2>Instance Attribute Summary</h2>
+  
   
   <h3 class="inherited">Attributes included from <span class='object_link'><a href="ClassMethod.html" title="RfmAdaptor::Record::ClassMethod (module)">ClassMethod</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="ClassMethod.html#database_name-instance_method" title="RfmAdaptor::Record::ClassMethod#database_name (method)">database_name</a></span></p>
@@ -317,7 +368,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="ClassMethod.html" title="RfmAdaptor::Record::ClassMethod (module)">ClassMethod</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ClassMethod.html#all-instance_method" title="RfmAdaptor::Record::ClassMethod#all (method)">all</a></span>, <span class='object_link'><a href="ClassMethod.html#find-instance_method" title="RfmAdaptor::Record::ClassMethod#find (method)">find</a></span>, <span class='object_link'><a href="ClassMethod.html#script-instance_method" title="RfmAdaptor::Record::ClassMethod#script (method)">script</a></span>, <span class='object_link'><a href="ClassMethod.html#use_database_name-instance_method" title="RfmAdaptor::Record::ClassMethod#use_database_name (method)">use_database_name</a></span>, <span class='object_link'><a href="ClassMethod.html#where-instance_method" title="RfmAdaptor::Record::ClassMethod#where (method)">where</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="ClassMethod.html#all-instance_method" title="RfmAdaptor::Record::ClassMethod#all (method)">all</a></span>, <span class='object_link'><a href="ClassMethod.html#create-instance_method" title="RfmAdaptor::Record::ClassMethod#create (method)">create</a></span>, <span class='object_link'><a href="ClassMethod.html#find-instance_method" title="RfmAdaptor::Record::ClassMethod#find (method)">find</a></span>, <span class='object_link'><a href="ClassMethod.html#script-instance_method" title="RfmAdaptor::Record::ClassMethod#script (method)">script</a></span>, <span class='object_link'><a href="ClassMethod.html#use_database_name-instance_method" title="RfmAdaptor::Record::ClassMethod#use_database_name (method)">use_database_name</a></span>, <span class='object_link'><a href="ClassMethod.html#where-instance_method" title="RfmAdaptor::Record::ClassMethod#where (method)">where</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -361,13 +412,13 @@
       <pre class="lines">
 
 
-13
-14
-15
-16</pre>
+16
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 16</span>
 
 <span class='def def kw'>def</span> <span class='initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='params_or_record identifier id'>params_or_record</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='super super kw'>super</span><span class='lparen token'>(</span><span class='rparen token'>)</span>
@@ -409,22 +460,22 @@
       <pre class="lines">
 
 
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177</pre>
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 212</span>
 
 <span class='def def kw'>def</span> <span class='method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='case case kw'>case</span>
@@ -446,6 +497,65 @@
 </div>
   
 </div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="record=-instance_method"></span>
+      <span id="record-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="record-instance_method">
+  
+    - (<tt>Rfm::Record</tt>) <strong>record</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    Get Rfm::Record
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Rfm::Record</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 90</span>
+
+<span class='def def kw'>def</span> <span class='record identifier id'>record</span>
+  <span class='@record ivar id'>@record</span> <span class='opasgn op'>||=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='setup_record identifier id'>setup_record</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -502,12 +612,12 @@
       <pre class="lines">
 
 
-67
-68
-69</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 76</span>
 
 <span class='def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='rparen token'>)</span>
   <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span>
@@ -566,13 +676,13 @@
       <pre class="lines">
 
 
-74
-75
-76
-77</pre>
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 83</span>
 
 <span class='def def kw'>def</span> <span class='aset op'>[]=</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='comma token'>,</span> <span class='value identifier id'>value</span><span class='rparen token'>)</span>
   <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;#{attribute} not defiend.&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='has_field? fid id'>has_field?</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='rparen token'>)</span>
@@ -622,17 +732,19 @@
       <pre class="lines">
 
 
-58
-59
-60
-61
-62</pre>
+66
+67
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 66</span>
 
 <span class='def def kw'>def</span> <span class='destroy identifier id'>destroy</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='delete identifier id'>delete</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='record_id identifier id'>record_id</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='delete identifier id'>delete</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='record_id identifier id'>record_id</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='updated_attributes identifier id'>updated_attributes</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
   <span class='self self kw'>self</span><span class='dot token'>.</span><span class='changed identifier id'>changed</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
   <span class='true true kw'>true</span>
 <span class='end end kw'>end</span>
@@ -680,13 +792,13 @@
       <pre class="lines">
 
 
-43
-44
-45
-46</pre>
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 48</span>
 
 <span class='def def kw'>def</span> <span class='save identifier id'>save</span>
   <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='false false kw'>false</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='changed? fid id'>changed?</span>
@@ -736,17 +848,23 @@
       <pre class="lines">
 
 
-50
-51
-52
-53
-54</pre>
+55
+56
+57
+58
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 55</span>
 
 <span class='def def kw'>def</span> <span class='save! fid id'>save!</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='edit identifier id'>edit</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='record_id identifier id'>record_id</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attribtues identifier id'>attribtues</span><span class='rparen token'>)</span>
+  <span class='write_log identifier id'>write_log</span><span class='dot token'>.</span><span class='debug identifier id'>debug</span><span class='lparen token'>(</span><span class='dstring node'>&quot;record_id: #{self.record_id}&quot;</span><span class='rparen token'>)</span>
+  <span class='write_log identifier id'>write_log</span><span class='dot token'>.</span><span class='debug identifier id'>debug</span><span class='lparen token'>(</span><span class='dstring node'>&quot;mod_id: #{self.mod_id}&quot;</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='edit identifier id'>edit</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='record_id identifier id'>record_id</span><span class='comma token'>,</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='updated_attributes identifier id'>updated_attributes</span><span class='rparen token'>)</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='updated_attributes identifier id'>updated_attributes</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
   <span class='self self kw'>self</span><span class='dot token'>.</span><span class='changed identifier id'>changed</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
   <span class='true true kw'>true</span>
 <span class='end end kw'>end</span>
@@ -809,23 +927,27 @@
       <pre class="lines">
 
 
-32
-33
-34
 35
 36
 37
 38
-39</pre>
+39
+40
+41
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 35</span>
 
 <span class='def def kw'>def</span> <span class='update_attribute identifier id'>update_attribute</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='comma token'>,</span> <span class='value identifier id'>value</span><span class='rparen token'>)</span>
   <span class='raise identifier id'>raise</span> <span class='dstring node'>&quot;Unknown attribute `#{attribute}'.&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='has_field? fid id'>has_field?</span><span class='lparen token'>(</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rparen token'>)</span>
   
   <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='false false kw'>false</span><span class='rparen token'>)</span> <span class='if if_mod kw'>if</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='value identifier id'>value</span>
   <span class='self self kw'>self</span><span class='dot token'>.</span><span class='attributes identifier id'>attributes</span><span class='lbrack token'>[</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='updated_attributes identifier id'>updated_attributes</span><span class='lbrack token'>[</span><span class='attribute identifier id'>attribute</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span>
+  
   <span class='self self kw'>self</span><span class='dot token'>.</span><span class='changed identifier id'>changed</span> <span class='assign token'>=</span> <span class='true true kw'>true</span>
   <span class='true true kw'>true</span>
 <span class='end end kw'>end</span>
@@ -893,16 +1015,16 @@
       <pre class="lines">
 
 
-21
-22
-23
 24
 25
 26
-27</pre>
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/record/base.rb', line 24</span>
 
 <span class='def def kw'>def</span> <span class='update_attributes identifier id'>update_attributes</span><span class='lparen token'>(</span><span class='values identifier id'>values</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='result identifier id'>result</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
@@ -922,7 +1044,7 @@
 </div>
     
     <div id="footer">
-  Generated on Mon Nov  7 17:38:24 2011 by 
+  Generated on Wed Nov  9 13:04:31 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>

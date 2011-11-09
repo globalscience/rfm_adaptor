@@ -207,7 +207,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>Send request to server with call back.</div></span>
+    <span class="summary_desc"><div class='inline'>Send request to server with call backs.</div></span>
   
 </li>
 
@@ -268,10 +268,7 @@
 28
 29
 30
-31
-32
-33
-34</pre>
+31</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/request_builder/base.rb', line 18</span>
@@ -289,9 +286,6 @@
     <span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span> <span class='assign token'>=</span> <span class='database_name identifier id'>database_name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
     <span class='self self kw'>self</span><span class='dot token'>.</span><span class='record_class identifier id'>record_class</span> <span class='assign token'>=</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='database_name identifier id'>database_name</span><span class='dot token'>.</span><span class='singularize identifier id'>singularize</span><span class='dot token'>.</span><span class='classify identifier id'>classify</span><span class='dot token'>.</span><span class='constantize identifier id'>constantize</span>
   <span class='end end kw'>end</span>
-  <span class='comment val'>#p self.database_name</span>
-  <span class='comment val'>#p self.record_class</span>
-  
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -451,7 +445,7 @@
   
 </p><div class="docstring">
   <div class="discussion">
-    Send request to server with call back.
+    Send request to server with call backs.
 
   </div>
 </div>
@@ -477,22 +471,20 @@
       <pre class="lines">
 
 
+35
+36
+37
 38
 39
-40
-41
-42
-43
-44</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/request_builder/base.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/rfm_adaptor/request_builder/base.rb', line 35</span>
 
 <span class='def def kw'>def</span> <span class='send identifier id'>send</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request_will_send identifier id'>request_will_send</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send! fid id'>send!</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='setup_records identifier id'>setup_records</span>
-  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='request_sent identifier id'>request_sent</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send_request identifier id'>send_request</span> <span class='do do kw'>do</span>
+    <span class='self self kw'>self</span><span class='dot token'>.</span><span class='send! fid id'>send!</span>
+  <span class='end end kw'>end</span>
   <span class='return return kw'>return</span><span class='lparen token'>(</span><span class='self self kw'>self</span><span class='dot token'>.</span><span class='records identifier id'>records</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
@@ -506,7 +498,7 @@
 </div>
     
     <div id="footer">
-  Generated on Mon Nov  7 17:38:23 2011 by 
+  Generated on Wed Nov  9 13:04:32 2011 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.3 (ruby-1.8.7).
 </div>
