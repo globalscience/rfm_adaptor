@@ -134,7 +134,7 @@ class RfmAdaptor::RequestBuilder::Field < RfmAdaptor::RequestBuilder::Base
     else
       begin
         self.send.__send__(name, *args, &block)
-      rescue
+      rescue NoMethodError => e
         super(name, *args, &block)
       end
     end

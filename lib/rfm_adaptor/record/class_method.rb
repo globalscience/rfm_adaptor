@@ -41,7 +41,7 @@ module RfmAdaptor::Record::ClassMethod
   
   # Send search all records request to server.
   # @return [RfmAdaptor::RequestBuilder]
-  def all(conditions)
+  def all(conditions = {})
     self.request.all(self.seed)
   end
   
