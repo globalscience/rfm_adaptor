@@ -1,0 +1,30 @@
+RfmAdaptor for Ruby On Rails
+
+1.About this software
+
+ Plugin for Ruby On Rails.
+
+ Create request for FileMakerServer like ActiveRecord.
+ 
+
+2.Requirements
+
+ Developed and work with
+  - Ruby 1.8.7
+  - Ruby On Rails 3.1.1
+  - FileMakerServerAdvenced10
+  - lardawge-rfm (https://github.com/lardawge/rfm)
+
+3.Lisence
+
+ This software lisenced under MIT lisence.
+
+4.Install
+
+ In RAILS_APP/vendor/plugins,
+ 
+    $ git clone git://github.com/globalscience/RfmAdaptor.git
+ 
+
+CopyRight(C) 2011 K.K.GlobalScience
+
